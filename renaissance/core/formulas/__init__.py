@@ -22,6 +22,8 @@
 # - 295-299: Volume Scaling (edge amplification)
 # - 300-310: Academic Research (peer-reviewed papers)
 # - 301-307: Adaptive Online Learning
+# - 311-316: HFT Volume (VPS, Order Arrival, Participation, Kyles W, Dynamic Threshold)
+# - 317-319: Transaction Costs (Dynamic Adverse Selection, Price Impact, Complete Cost)
 
 from .base import BaseFormula, FormulaRegistry, FORMULA_REGISTRY
 
@@ -46,7 +48,9 @@ from . import volume_scaling      # IDs 295-299
 from . import academic_research   # IDs 300-310
 from . import adaptive_online     # IDs 301-307
 from . import advanced_prediction # IDs 291-320
+from . import hft_volume          # IDs 311-316 (F019-F024)
 from . import gap_analysis        # IDs 218-222
+from . import transaction_costs   # IDs 317-319 (F013, F017, F018)
 
 __all__ = [
     'BaseFormula',
