@@ -1,3 +1,6 @@
+# Renaissance Trading System - .gitignore
+# =========================================
+
 # Python
 __pycache__/
 *.py[cod]
@@ -32,27 +35,58 @@ env/
 *.swp
 *.swo
 *~
+.project
+.pydevproject
+.settings/
 
 # Logs
-*.log
 logs/
+*.log
+trading*.log
 
-# Local config
+# Data files (keep Python, ignore large data)
+data/*.csv
+data/*.npy
+data/*.bin
+data/*.parquet
+data/*.h5
+
+# Secrets & Config
 .env
 .env.local
+*.pem
+*.key
 secrets.json
 credentials.json
+config.local.py
 
 # OS
 .DS_Store
 Thumbs.db
+desktop.ini
 
-# Data files (too large for git)
-*.csv
-*.parquet
-*.h5
-data/
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
 
-# Keep these
+# Jupyter
+.ipynb_checkpoints/
+
+# Numba cache
+__numba_cache__/
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+
+# Keep important files
 !requirements.txt
 !setup.py
+!data/__init__.py
+!data/*.py
+nul
+vendor/freqtrade
