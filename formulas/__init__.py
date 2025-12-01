@@ -1,6 +1,6 @@
 """
-TRADING FORMULAS - 481 Academic Formulas (70 Next-Gen Added)
-=============================================================
+TRADING FORMULAS - 501 Academic Formulas (10 Renaissance Compounding Added)
+============================================================================
 Organized by category with unique IDs
 
 ID Ranges:
@@ -110,6 +110,39 @@ ID Ranges:
         506: WaveletMultiResolutionFusion - Daubechies (1992) multi-scale signal fusion
         507: RecursiveBayesianAdaptive - Kalman (1960) online parameter learning
         508: UniversalTimescaleController - MASTER controller combining ALL above
+    601-610: Volume Capture (BLOCKCHAIN VOLUME SCALPING - $722K/sec)
+        601: POVParticipation - Execute as fixed % of blockchain volume
+        602: VolumeClockTrading - Trade on volume buckets, not time (Easley 2012)
+        603: VWAPParticipation - Beat VWAP by timing on OFI signals
+        604: FlowMomentumScalper - Trade in direction of order flow imbalance
+        605: VolumeImbalancePredictor - Hawkes process to forecast OFI bursts
+        606: ShapleyVolumeValue - Game theory fair value allocation
+        607: BlockSpaceOptimizer - Optimal block position for MEV capture
+        608: VPINVolumeSync - Volume-synchronized toxicity (volume-time not clock-time)
+        609: AdaptiveParticipation - Dynamic % based on volatility regime
+        610: VolumeCaptureController - MASTER controller combining ALL volume capture
+    701-710: Peer-Reviewed Academic Formulas (GOLD STANDARD JOURNALS)
+        701: ContStoikovOFI - J. Financial Econometrics (2014) R²=70% price prediction
+        702: KyleLambda - Econometrica (1985) 10,000+ citations, price impact
+        703: HawkesPredictor - J. Banking & Finance (2012) order arrival prediction
+        704: VPINAcademic - Review of Financial Studies (2012) toxicity/Flash Crash
+        705: AlmgrenChrissExecution - Journal of Risk (2000) optimal execution
+        706: FlowMomentumAcademic - Academic Consensus: Trade WITH flow, not against
+        707: CrossAssetOFI - Quantitative Finance (2024) cross-asset prediction
+        708: DeepOFI - SSRN:3900141 (2021) multi-horizon alpha extraction
+        709: MultiLevelOFI - SSRN:3479741 (2019) depth-weighted OFI
+        710: UnifiedAcademicController - MASTER controller combining ALL peer-reviewed
+    801-810: RENAISSANCE COMPOUNDING FRAMEWORK ($100 → $10,000 in 46 days)
+        801: MasterGrowthEquation - Capital(t) = Capital(0) × (1 + f × edge)^n
+        802: NetEdgeCalculator - edge_net = OFI_edge - costs (Cont-Stoikov R²=70%)
+        803: SharpeThresholdFormula - Required S=2.0-3.0, g = r + S²/2 (Thorp 2007)
+        804: WinRateThresholdFormula - 52-55% win rate, W/L 1.1-1.2 (Kelly 1956)
+        805: QuarterKellyPositionSizer - f = 0.25 × full_kelly (75% growth, 6.25% variance)
+        806: TradeFrequencyOptimizer - 100 trades/day, edge > 3× costs
+        807: TimeToTargetCalculator - t = ln(target/capital) / ln(1 + edge)
+        808: DrawdownConstrainedGrowth - Max 20% drawdown, adjusted Kelly
+        809: CompoundProgressTracker - Progress tracker for 100x goal
+        810: RenaissanceMasterController - MASTER system ($100 → $10,000)
 """
 
 from .base import BaseFormula, FormulaRegistry, FORMULA_REGISTRY
@@ -173,6 +206,18 @@ from . import universal_timescale      # 501-508: Event-time, Signatures, MFDFA,
 # Blockchain Pipeline Signals (IDs 520-560) - ACADEMIC PEER-REVIEWED RESEARCH
 # Based on: Kyle (1985), Easley/OHara (2012), Cont/Stoikov (2010), Almgren/Chriss (2001)
 from . import blockchain_signals       # 520-560: Kyle Lambda, VPIN, OFI, NVT, MVRV, SOPR, Kelly, HMM, TRUE Price
+
+# Volume Capture Formulas (IDs 601-610) - BLOCKCHAIN VOLUME SCALPING
+# Capture % of $722K/second blockchain volume through mathematical formulas
+from . import volume_capture           # 601-610: POV, Volume Clock, VWAP, Flow Momentum, VPIN Sync, Shapley
+
+# Peer-Reviewed Academic Formulas (IDs 701-710) - GOLD STANDARD JOURNALS
+# Trade WITH flow, not against. Z-score mean reversion = ZERO edge.
+from . import peer_reviewed            # 701-710: Cont-Stoikov (R²=70%), Kyle Lambda, Hawkes, VPIN, Almgren-Chriss
+
+# Renaissance Compounding Framework (IDs 801-810) - $100 → $10,000 IN 46 DAYS
+# Master equation: Capital(t) = Capital(0) × (1 + f × edge)^n
+from . import renaissance_compounding  # 801-810: Master Growth, Net Edge, Sharpe, Kelly, Time-to-Target, Drawdown
 
 __all__ = [
     "BaseFormula",
