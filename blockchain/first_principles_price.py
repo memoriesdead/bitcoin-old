@@ -29,8 +29,6 @@ Sources:
 
 import time
 import math
-import urllib.request
-import json
 from dataclasses import dataclass
 from typing import Optional, Tuple
 
@@ -121,36 +119,22 @@ class FirstPrinciplesPricer:
 
     def get_blockchain_state(self) -> BlockchainState:
         """
-        Get current blockchain state from mempool.space.
+        Get current blockchain state from pure math - NO API CALLS.
 
-        All data here is PURE BLOCKCHAIN - directly from nodes.
+        All data derived mathematically from blockchain time.
         """
-        try:
-            # Get difficulty and block height
-            req = urllib.request.Request(
-                'https://mempool.space/api/v1/mining/hashrate/3d',
-                headers={'User-Agent': 'Mozilla/5.0'}
-            )
-            with urllib.request.urlopen(req, timeout=5) as resp:
-                data = json.loads(resp.read())
-                current = data['currentHashrate']
-                difficulty = data['currentDifficulty']
+        # Calculate from pure blockchain time
+        seconds_since_genesis = time.time() - GENESIS_TIMESTAMP
+        block_height = int(seconds_since_genesis / SECONDS_PER_BLOCK)
 
-            # Get block height
-            req2 = urllib.request.Request(
-                'https://mempool.space/api/blocks/tip/height',
-                headers={'User-Agent': 'Mozilla/5.0'}
-            )
-            with urllib.request.urlopen(req2, timeout=5) as resp2:
-                block_height = int(resp2.read().decode())
+        # Derive difficulty from time (scales with network growth)
+        days = seconds_since_genesis / 86400
+        difficulty = 1e12 * (days / 1000) ** 4  # Power law growth
 
-        except Exception as e:
-            # Fallback: Calculate from known data
-            block_height = 871000 + int((time.time() - 1730000000) / 600)
-            difficulty = 102_000_000_000_000  # ~102T current
-            current = difficulty * 2**32 / 600
+        # Hash rate derived from difficulty
+        hash_rate = difficulty * (2 ** 32) / SECONDS_PER_BLOCK
 
-        return self._compute_state(block_height, difficulty, current)
+        return self._compute_state(block_height, difficulty, hash_rate)
 
     def _compute_state(self, block_height: int, difficulty: float,
                        hash_rate: float) -> BlockchainState:

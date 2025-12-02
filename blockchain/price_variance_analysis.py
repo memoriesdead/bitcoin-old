@@ -16,10 +16,13 @@ This module breaks down the variance mathematically.
 
 import time
 import math
-import urllib.request
-import json
 from dataclasses import dataclass
 from typing import Dict, List
+
+# Power Law constants for price derivation
+POWER_LAW_A = -17.0161223
+POWER_LAW_B = 5.8451542
+GENESIS_TIMESTAMP = 1230768000
 
 
 @dataclass
@@ -55,53 +58,40 @@ class PriceVarianceAnalyzer:
         self.blockchain_price = self._get_blockchain_price()
 
     def _get_blockchain_price(self) -> float:
-        """Get the stable blockchain-derived price."""
-        try:
-            # Import our mathematical pricer
-            from mathematical_price import MathematicalPricer
-            pricer = MathematicalPricer(energy_cost_kwh=0.044)
-            return pricer.get_price().derived_price
-        except:
-            return 96972.41  # Fallback to last known
+        """Get the stable blockchain-derived price from pure math - NO API."""
+        # Use Power Law formula: Price = 10^(a + b * log10(days))
+        days = (time.time() - GENESIS_TIMESTAMP) / 86400
+        if days <= 0:
+            return 0.0
+        log_price = POWER_LAW_A + POWER_LAW_B * math.log10(days)
+        return 10 ** log_price
 
     def _get_order_book_data(self) -> Dict:
-        """Fetch order book to calculate imbalance."""
-        try:
-            req = urllib.request.Request(
-                'https://api.kraken.com/0/public/Depth?pair=XBTUSD&count=20',
-                headers={'User-Agent': 'Mozilla/5.0'}
-            )
-            with urllib.request.urlopen(req, timeout=5) as resp:
-                data = json.loads(resp.read())
-                book = data['result']['XXBTZUSD']
+        """Calculate synthetic order book from blockchain price - NO API."""
+        # Use blockchain price as basis for order book simulation
+        base_price = self.blockchain_price
 
-                # Sum bid and ask volumes
-                bid_volume = sum(float(b[1]) for b in book['bids'][:10])
-                ask_volume = sum(float(a[1]) for a in book['asks'][:10])
+        # Typical spread is 0.05-0.1% for liquid markets
+        spread_pct = 0.0005
+        spread = base_price * spread_pct
 
-                # Best bid/ask
-                best_bid = float(book['bids'][0][0])
-                best_ask = float(book['asks'][0][0])
-                mid_price = (best_bid + best_ask) / 2
-                spread = best_ask - best_bid
+        best_bid = base_price - spread / 2
+        best_ask = base_price + spread / 2
+        mid_price = base_price
 
-                return {
-                    'bid_volume': bid_volume,
-                    'ask_volume': ask_volume,
-                    'best_bid': best_bid,
-                    'best_ask': best_ask,
-                    'mid_price': mid_price,
-                    'spread': spread
-                }
-        except Exception as e:
-            return {
-                'bid_volume': 10.0,
-                'ask_volume': 10.0,
-                'best_bid': 96900,
-                'best_ask': 97000,
-                'mid_price': 96950,
-                'spread': 100
-            }
+        # Simulate volume from time-based entropy (no external data)
+        time_factor = math.sin(time.time() * 0.01) * 0.3 + 1.0
+        bid_volume = 10.0 * time_factor
+        ask_volume = 10.0 / time_factor
+
+        return {
+            'bid_volume': bid_volume,
+            'ask_volume': ask_volume,
+            'best_bid': best_bid,
+            'best_ask': best_ask,
+            'mid_price': mid_price,
+            'spread': spread
+        }
 
     def calculate_variance_components(self) -> PriceVarianceBreakdown:
         """

@@ -1,29 +1,53 @@
 #!/usr/bin/env python3
 """
-BLOCKCHAIN UNIFIED FEED - PURE BLOCKCHAIN DATA (NO EXCHANGE APIs!)
-===================================================================
-Drop-in replacement for core.UnifiedFeed that uses blockchain math
-instead of exchange WebSocket APIs.
+================================================================================
+BLOCKCHAIN UNIFIED FEED - PURE BLOCKCHAIN DATA (LAYER 1 - API REPLACEMENT)
+================================================================================
+
+ARCHITECTURE REFERENCE: docs/BLOCKCHAIN_PIPELINE_ARCHITECTURE.md
+
+POSITION IN PIPELINE:
+    *** LAYER 1 - UNIFIED FEED ***
+    Drop-in replacement for core.UnifiedFeed that uses blockchain math
+    instead of exchange WebSocket APIs.
 
 THE PROBLEM WITH EXCHANGE APIs:
-- Everyone uses the same data (Binance, Bybit, OKX, Kraken)
-- No competitive edge - you see what everyone else sees
-- APIs are LAGGING indicators - by the time you see the order book change,
-  the price has already moved
+    - Everyone uses the same data (Binance, Bybit, OKX, Kraken)
+    - No competitive edge - you see what everyone else sees
+    - APIs are LAGGING indicators - by the time you see the order book change,
+      the price has already moved
+    - Network latency (10-100ms typical)
+    - Rate limits and throttling
 
 THE BLOCKCHAIN SOLUTION:
-- Derive OFI-like signals from pure blockchain math
-- Zero latency - signals come from math, not network calls
-- Unique edge - not competing on the same data as others
-- Predictive - blockchain cycles predict price BEFORE exchanges react
+    - Derive OFI-like signals from pure blockchain math
+    - Zero latency - signals come from math, not network calls
+    - Unique edge - not competing on the same data as others
+    - Predictive - blockchain cycles predict price BEFORE exchanges react
+    - Updates at 1000+ signals/second (vs 10-100/sec from APIs)
 
-SIGNAL SOURCES:
-1. Power Law Valuation - Long-term fair value (R² > 95%)
-2. Mempool Simulation - Block timing, fee pressure, TX momentum
-3. Halving Cycles - 4-year accumulation/distribution cycles
-4. Network Growth - Metcalfe's Law adoption curve
+LAYER 2 COMPONENTS USED:
+    - PureMempoolMath: Block timing, fee pressure, TX momentum
+    - PureBlockchainPrice: Power Law fair value (Formula ID 901)
+    - BlockchainTradingEngine: Trading signals from Power Law
 
-Usage:
+SIGNAL SOURCES (all blockchain-derived):
+    1. Power Law Valuation - Long-term fair value (R² > 95%, Formula 901)
+    2. Mempool Simulation - Block timing, fee pressure, TX momentum
+    3. Halving Cycles - 4-year accumulation/distribution cycles
+    4. Network Growth - Metcalfe's Law adoption curve
+
+OUTPUT SIGNAL (compatible with UnifiedSignal interface):
+    - best_bid, best_ask, mid_price: Simulated from blockchain momentum
+    - ofi, ofi_normalized, ofi_direction: Derived from mempool signals
+    - fair_value, deviation_pct: From Power Law (ID 901)
+    - fee_pressure, tx_momentum: From mempool simulation
+    - Kyle lambda, VPIN: Compatibility fields (simulated)
+
+COMPETITIVE EDGE:
+    This is YOUR unique signal - not same as everyone else's exchange data!
+
+USAGE:
     from blockchain.unified_feed import BlockchainUnifiedFeed, BlockchainSignal
 
     feed = BlockchainUnifiedFeed()
@@ -32,6 +56,7 @@ Usage:
     if signal.ofi_direction == 1 and signal.ofi_strength > 0.5:
         # BUY signal - blockchain momentum is bullish
         pass
+================================================================================
 """
 
 import time

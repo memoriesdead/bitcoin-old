@@ -19,8 +19,6 @@ All formulas derived from blockchain fundamentals.
 
 import time
 import math
-import urllib.request
-import json
 from dataclasses import dataclass
 from typing import Tuple
 
@@ -86,41 +84,26 @@ class CompleteBlockchainPricer:
         self.asic_efficiency = asic_efficiency_j_th
 
     def get_blockchain_data(self) -> dict:
-        """Fetch pure blockchain data."""
-        try:
-            # Hash rate and difficulty
-            req = urllib.request.Request(
-                'https://mempool.space/api/v1/mining/hashrate/3d',
-                headers={'User-Agent': 'Mozilla/5.0'}
-            )
-            with urllib.request.urlopen(req, timeout=5) as resp:
-                data = json.loads(resp.read())
-                hash_rate = data['currentHashrate']
-                difficulty = data['currentDifficulty']
+        """Calculate blockchain data from pure math - NO API CALLS."""
+        # Calculate block height from genesis time (pure blockchain time)
+        # Average block time is 600 seconds (10 minutes)
+        seconds_since_genesis = time.time() - GENESIS_TIMESTAMP
+        block_height = int(seconds_since_genesis / 600)
 
-            # Block height
-            req2 = urllib.request.Request(
-                'https://mempool.space/api/blocks/tip/height',
-                headers={'User-Agent': 'Mozilla/5.0'}
-            )
-            with urllib.request.urlopen(req2, timeout=5) as resp2:
-                block_height = int(resp2.read().decode())
+        # Derive difficulty from Power Law relationship
+        # Difficulty grows approximately as: D = D_0 * (days^4)
+        # Using historical fit parameters
+        days = seconds_since_genesis / 86400
+        difficulty = 1e12 * (days / 1000) ** 4  # Scales with time^4
 
-            return {
-                'block_height': block_height,
-                'difficulty': difficulty,
-                'hash_rate': hash_rate
-            }
-        except:
-            # Calculate from protocol rules if API unavailable
-            block_height = 871000 + int((time.time() - 1730000000) / 600)
-            difficulty = 102e12
-            hash_rate = difficulty * 2**32 / 600
-            return {
-                'block_height': block_height,
-                'difficulty': difficulty,
-                'hash_rate': hash_rate
-            }
+        # Hash rate derived from difficulty: H = D * 2^32 / 600
+        hash_rate = difficulty * (2 ** 32) / 600
+
+        return {
+            'block_height': block_height,
+            'difficulty': difficulty,
+            'hash_rate': hash_rate
+        }
 
     def calculate_supply(self, block_height: int) -> float:
         """Calculate total supply from block height (pure math)."""

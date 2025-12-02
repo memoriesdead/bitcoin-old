@@ -114,6 +114,18 @@ except ImportError as e:
     print(f"[RENAISSANCE] Not available: {e}")
 
 # =============================================================================
+# HFT OPTIMIZER - RENAISSANCE TECHNOLOGIES LEVEL PERFORMANCE
+# =============================================================================
+# CPU affinity, real-time priority, memory locking, SIMD optimization
+try:
+    from core.hft_optimizer import HFTOptimizer
+    HFT_OPTIMIZER_ENABLED = True
+    print("[HFT] HFT Optimizer loaded - nanosecond-level optimizations available")
+except ImportError as e:
+    HFT_OPTIMIZER_ENABLED = False
+    print(f"[HFT] HFT Optimizer not available: {e}")
+
+# =============================================================================
 # ENVIRONMENT OPTIMIZATION
 # =============================================================================
 os.environ['NUMBA_OPT'] = '3'
@@ -2054,6 +2066,18 @@ class RenaissanceEngine:
 # =============================================================================
 
 def main():
+    # ==========================================================================
+    # HFT OPTIMIZER - APPLY SYSTEM-LEVEL OPTIMIZATIONS FIRST
+    # ==========================================================================
+    # CPU affinity, real-time priority, memory locking for nanosecond trading
+    if HFT_OPTIMIZER_ENABLED:
+        print("\n" + "=" * 70)
+        print("APPLYING HFT OPTIMIZATIONS - RENAISSANCE TECHNOLOGIES LEVEL")
+        print("=" * 70)
+        hft_optimizer = HFTOptimizer(verbose=True)
+        hft_optimizer.apply_all(aggressive=True)  # Apply all optimizations
+        print("=" * 70 + "\n")
+
     # ==========================================================================
     # RENAISSANCE COMPOUNDING ENGINE - THE MONEY MACHINE
     # ==========================================================================

@@ -1,22 +1,53 @@
 """
-BLOCKCHAIN DATA PIPELINE - NO EXCHANGE APIs!
-=============================================
-Pure Bitcoin blockchain data - replaces all third-party exchange APIs.
+================================================================================
+BLOCKCHAIN DATA PIPELINE - PURE MATH, NO EXCHANGE APIs!
+================================================================================
 
-THE EDGE: Everyone else uses the same exchange APIs (Binance, Bybit, etc.)
-         We use pure blockchain math for unique signals.
+THE COMPETITIVE EDGE:
+    - Everyone else uses the same exchange APIs (Binance, Bybit, OKX)
+    - We derive ALL signals from pure blockchain math
+    - Zero latency (math, not network calls)
+    - Unique signals (not same data as everyone else)
 
-Components:
-    BlockchainUnifiedFeed  - Drop-in replacement for core.UnifiedFeed (NO APIs!)
-    BlockchainSignal       - Trading signal from blockchain math
-    PureMempoolMath        - Mempool simulation from pure math
-    PureBlockchainPrice    - Power Law fair value (R² > 95%)
-    BlockchainTradingEngine - Trading signals from Power Law valuation
+PIPELINE ARCHITECTURE:
+    See: docs/BLOCKCHAIN_PIPELINE_ARCHITECTURE.md
+
+================================================================================
+LAYER 1: UNIFIED FEED (Drop-in API Replacement)
+================================================================================
+    BlockchainUnifiedFeed  - Drop-in replacement for core.UnifiedFeed
+    BlockchainSignal       - Trading signal compatible with UnifiedSignal
+
+================================================================================
+LAYER 2: PURE MATH COMPONENTS
+================================================================================
+    PureMempoolMath        - Mempool simulation from pure blockchain math
+                            Sources: Block timing, Halving cycles, Difficulty
+    PureBlockchainPrice    - Power Law fair value (R² = 93%+)
+                            Formula: Price = 10^(A + B * log10(days))
+    BlockchainTradingEngine - Trading signals from Power Law deviation
+
+================================================================================
+LAYER 3: DATA SOURCES (Legacy, still functional)
+================================================================================
+    BlockchainFeed         - Base blockchain data feed
+    BlockchainMarketData   - Market data from blockchain
+    BlockchainPriceEngine  - Real-time price derivation
+
+FORMULA IDs:
+    901: Power Law Price Signal (LEADING - timestamp only)
+    902: Stock-to-Flow Signal (LEADING - timestamp only)
+    903: Halving Cycle Position (LEADING - timestamp only)
+    801-804: Blockchain signals (block volatility, mempool, chaos, whale)
+    520-560: Academic microstructure signals
+
+================================================================================
 """
 
 # CORE: Drop-in replacement for exchange API feeds
 from .unified_feed import BlockchainUnifiedFeed, BlockchainSignal, UnifiedFeed, UnifiedSignal
 from .mempool_math import PureMempoolMath, MempoolSignals, get_mempool_signals, get_mempool_price_delta
+from .price_generator import BlockchainPriceGenerator, calc_blockchain_price, generate_price_ticks
 
 # Legacy components (still useful)
 from .blockchain_feed import BlockchainFeed
@@ -31,6 +62,11 @@ __all__ = [
     "BlockchainSignal",
     "UnifiedFeed",      # Alias for compatibility
     "UnifiedSignal",    # Alias for compatibility
+
+    # Blockchain price generation (FASTER THAN APIs)
+    "BlockchainPriceGenerator",
+    "calc_blockchain_price",
+    "generate_price_ticks",
 
     # Mempool simulation
     "PureMempoolMath",

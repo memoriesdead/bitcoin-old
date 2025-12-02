@@ -1,17 +1,35 @@
 #!/usr/bin/env python3
 """
-PURE BLOCKCHAIN MEMPOOL SIMULATION - ZERO API CALLS
-====================================================
+================================================================================
+PURE BLOCKCHAIN MEMPOOL SIMULATION - ZERO API CALLS (LAYER 2)
+================================================================================
 
-Derives mempool-like signals from pure blockchain math.
-No external data. No APIs. No delays.
+ARCHITECTURE REFERENCE: docs/BLOCKCHAIN_PIPELINE_ARCHITECTURE.md
 
-All signals derived from:
-- Block timing (600 second cycles)
-- Halving cycles (210,000 blocks)
-- Difficulty adjustment (2,016 blocks)
-- Network growth (Metcalfe's Law)
-- Time cycles (daily/weekly patterns)
+POSITION IN PIPELINE:
+    This is a LAYER 2 component - Pure math mempool simulation.
+    Provides momentum signals to BlockchainUnifiedFeed (LAYER 1).
+
+SIGNAL OUTPUTS (all derived from blockchain time, NO APIs):
+    - block_progress:     0.0-1.0 progress through 10-min block interval
+    - fee_pressure:       -1 to +1, derived from block timing + halving proximity
+    - tx_momentum:        -1 to +1, derived from time cycles (daily/weekly)
+    - congestion_signal:  -1 to +1, combines fee + volume signals
+    - price_momentum:     -1 to +1, EMA-smoothed directional signal
+    - momentum_strength:  0-1, confidence in momentum signal
+
+INPUT SOURCES (Pure Blockchain Math):
+    - Block timing:       600 second cycles (10 min target)
+    - Halving cycles:     210,000 blocks (~4 years)
+    - Difficulty adjustment: 2,016 blocks (~2 weeks)
+    - Network growth:     Metcalfe's Law (logarithmic)
+    - Time cycles:        Daily/weekly patterns in TX volume
+
+COMPETITIVE EDGE:
+    - Zero latency (pure math, no network calls)
+    - Unique signal (not same as exchange API users)
+    - Predictive (blockchain cycles predict before exchanges react)
+================================================================================
 """
 
 import math

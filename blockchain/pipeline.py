@@ -1,18 +1,37 @@
 """
-BLOCKCHAIN TRADING PIPELINE - Academic Formula Integration
-============================================================
-Integrates TRUE PRICE with academic peer-reviewed formulas for
-high-frequency blockchain trading (300K-1M trades/day).
+================================================================================
+BLOCKCHAIN TRADING PIPELINE - Academic Formula Integration (LAYER 2)
+================================================================================
 
-Pipeline Flow:
-1. TRUE PRICE from blockchain (mathematical_price.py)
-2. Market Microstructure signals (Kyle, VPIN, OFI, Microprice)
-3. On-Chain metrics (NVT, MVRV, SOPR, Hash Ribbon)
-4. Execution optimization (Almgren-Chriss, Avellaneda-Stoikov)
-5. Risk management (Kelly, HMM Regime)
-6. Master aggregation (Condorcet voting with confidence weighting)
+ARCHITECTURE REFERENCE: docs/BLOCKCHAIN_PIPELINE_ARCHITECTURE.md
+
+POSITION IN PIPELINE:
+    This is a LAYER 2 component - integrates LAYER 3 data sources with
+    academic formulas to produce trading signals.
+
+PIPELINE FLOW:
+    1. TRUE PRICE from blockchain (mathematical_price.py)
+    2. Market Microstructure signals (Kyle, VPIN, OFI, Microprice)
+    3. On-Chain metrics (NVT, MVRV, SOPR, Hash Ribbon)
+    4. Execution optimization (Almgren-Chriss, Avellaneda-Stoikov)
+    5. Risk management (Kelly, HMM Regime)
+    6. Master aggregation (Condorcet voting with confidence weighting)
+
+FORMULA IDs USED:
+    520-523: Microstructure (Kyle, VPIN, OFI, Microprice)
+    530-533: On-Chain (NVT, MVRV, SOPR, Hash Ribbon)
+    540-541: Execution (Almgren-Chriss, Avellaneda-Stoikov)
+    550-551: Risk (Kelly, HMM Regime)
+    552:     TRUE Price Deviation
+    560:     Master Aggregator (Condorcet voting)
+
+SIGNAL AGGREGATION:
+    Uses Condorcet voting with confidence-weighted signals.
+    Each formula contributes a vote (-1, 0, +1) with confidence (0-1).
+    Final signal = weighted majority across all formulas.
 
 NO EXCHANGE APIS - Pure blockchain data + mathematical formulas.
+================================================================================
 """
 
 import time

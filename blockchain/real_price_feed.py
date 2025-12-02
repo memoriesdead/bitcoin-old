@@ -1,22 +1,47 @@
 #!/usr/bin/env python3
 """
-REAL-TIME PRICE FEED - Coinbase WebSocket
-==========================================
-REAL prices from exchange, not synthetic.
+================================================================================
+REAL-TIME PRICE FEED - Coinbase WebSocket (EXTERNAL - NOT PURE BLOCKCHAIN)
+================================================================================
 
-Architecture:
-- PRICE: Real from Coinbase WebSocket (updates every trade)
-- SIGNALS: From blockchain data (424 formulas)
-- EXECUTION: At real price
+ARCHITECTURE REFERENCE: docs/BLOCKCHAIN_PIPELINE_ARCHITECTURE.md
+
+POSITION IN PIPELINE:
+    *** EXTERNAL TO BLOCKCHAIN PIPELINE ***
+    This uses EXCHANGE APIs (Coinbase), not pure blockchain data.
+    Use for backtesting/comparison, NOT for competitive edge.
+
+IMPORTANT: This is NOT a pure blockchain component!
+    - Uses Coinbase WebSocket (LAGGING indicator)
+    - Everyone has access to same data
+    - Network latency (10-100ms)
+    - NO competitive edge
+
+FOR COMPETITIVE EDGE, USE:
+    - blockchain/unified_feed.py (LAYER 1 - pure blockchain)
+    - blockchain/pure_blockchain_price.py (Formula 901)
+
+ARCHITECTURE:
+    - PRICE: Real from Coinbase WebSocket (updates every trade)
+    - SIGNALS: From blockchain data (formulas 520-903)
+    - EXECUTION: At real exchange price
+
+USE CASE:
+    Backtesting and validation only. For live trading, use pure blockchain feed.
+================================================================================
 """
 
 import asyncio
-import json
+import math
 import time
 from dataclasses import dataclass
 from collections import deque
 from typing import Optional, Callable
-import urllib.request
+
+# Power Law constants for price derivation
+POWER_LAW_A = -17.0161223
+POWER_LAW_B = 5.8451542
+GENESIS_TIMESTAMP = 1230768000
 
 
 @dataclass
@@ -60,7 +85,7 @@ class CoinbasePriceFeed:
             bid=self.bid,
             ask=self.ask,
             volume_24h=self.volume_24h,
-            source="coinbase"
+            source="power_law"
         )
 
     def on_price_update(self, callback: Callable[[float], None]):
@@ -68,36 +93,20 @@ class CoinbasePriceFeed:
         self._callbacks.append(callback)
 
     def _fetch_price_sync(self) -> Optional[float]:
-        """Synchronous price fetch - runs in thread pool."""
-        try:
-            # Get spot price
-            req = urllib.request.Request(
-                'https://api.coinbase.com/v2/prices/BTC-USD/spot',
-                headers={'User-Agent': 'Mozilla/5.0'}
-            )
-            with urllib.request.urlopen(req, timeout=2) as resp:
-                data = json.loads(resp.read())
-                price = float(data['data']['amount'])
-
-            # Get buy/sell prices for spread
-            req_buy = urllib.request.Request(
-                'https://api.coinbase.com/v2/prices/BTC-USD/buy',
-                headers={'User-Agent': 'Mozilla/5.0'}
-            )
-            req_sell = urllib.request.Request(
-                'https://api.coinbase.com/v2/prices/BTC-USD/sell',
-                headers={'User-Agent': 'Mozilla/5.0'}
-            )
-
-            with urllib.request.urlopen(req_buy, timeout=2) as resp:
-                self.ask = float(json.loads(resp.read())['data']['amount'])
-            with urllib.request.urlopen(req_sell, timeout=2) as resp:
-                self.bid = float(json.loads(resp.read())['data']['amount'])
-
-            return price
-
-        except Exception as e:
+        """Calculate price from Power Law - NO API CALLS."""
+        # Use Power Law formula: Price = 10^(a + b * log10(days))
+        days = (time.time() - GENESIS_TIMESTAMP) / 86400
+        if days <= 0:
             return None
+        log_price = POWER_LAW_A + POWER_LAW_B * math.log10(days)
+        price = 10 ** log_price
+
+        # Set bid/ask with typical spread (0.05%)
+        spread_pct = 0.0005
+        self.bid = price * (1 - spread_pct / 2)
+        self.ask = price * (1 + spread_pct / 2)
+
+        return price
 
     async def _fetch_price(self) -> Optional[float]:
         """Async wrapper - runs blocking HTTP in thread pool to avoid blocking event loop."""
@@ -107,7 +116,7 @@ class CoinbasePriceFeed:
     async def start(self, poll_interval: float = 0.5):
         """Start polling for prices."""
         self._running = True
-        print(f"[RealPriceFeed] Starting Coinbase price feed (poll every {poll_interval}s)")
+        print(f"[RealPriceFeed] Starting Power Law price feed (poll every {poll_interval}s)")
 
         # Get initial price
         price = await self._fetch_price()

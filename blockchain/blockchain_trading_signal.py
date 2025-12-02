@@ -1,19 +1,42 @@
 #!/usr/bin/env python3
 """
-BLOCKCHAIN TRADING SIGNAL GENERATOR
-====================================
-Combines pure blockchain data sources for trading signals.
+================================================================================
+BLOCKCHAIN TRADING SIGNAL GENERATOR (LAYER 2)
+================================================================================
 
-This is your EDGE - derived entirely from blockchain, NO APIs.
+ARCHITECTURE REFERENCE: docs/BLOCKCHAIN_PIPELINE_ARCHITECTURE.md
 
-Components:
-1. Power Law Fair Value - Long-term price target (R^2 > 0.95)
-2. Real-time Mempool/Fee signals - Short-term momentum
-3. Position sizing based on deviation from fair value
+POSITION IN PIPELINE:
+    This is a LAYER 2 component - generates trading signals from LAYER 3 data.
+    Uses: PureBlockchainPrice (L3) for Power Law valuation
+    Used by: BlockchainUnifiedFeed (L1), Trading engines
 
-Sources:
-- Power Law: https://bitbo.io/tools/power-law-calculator/
-- Theory: https://giovannisantostasi.medium.com/the-bitcoin-power-law-theory-962dfaf99ee9
+SIGNAL GENERATION:
+    Combines pure blockchain data sources for trading signals.
+    This is your EDGE - derived entirely from blockchain, NO APIs.
+
+COMPONENTS:
+    1. Power Law Fair Value - Long-term price target (R² > 95%)
+    2. Support/Resistance bands - 42%/238% of fair value
+    3. Position sizing based on deviation from fair value
+
+SIGNAL OUTPUT:
+    - signal:       -1 (sell) to +1 (buy)
+    - strength:     STRONG/MODERATE/WEAK
+    - action:       BUY/SELL/HOLD
+    - position_size: 0.5x to 2.0x based on deviation
+
+DEVIATION-BASED SIGNALS:
+    - Price < Fair - 30%: STRONG BUY
+    - Price < Fair - 15%: MODERATE BUY
+    - Price > Fair + 15%: MODERATE SELL
+    - Price > Fair + 30%: STRONG SELL
+    - Within ±15%: HOLD (neutral)
+
+SOURCES:
+    - Power Law: https://bitbo.io/tools/power-law-calculator/
+    - Theory: https://giovannisantostasi.medium.com/the-bitcoin-power-law-theory-962dfaf99ee9
+================================================================================
 """
 
 import time

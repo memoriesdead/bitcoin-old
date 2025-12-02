@@ -1,26 +1,48 @@
 #!/usr/bin/env python3
 """
-PURE BLOCKCHAIN PRICE - POWER LAW MODEL
-========================================
-The most accurate blockchain-derived price using the Power Law model.
+================================================================================
+PURE BLOCKCHAIN PRICE - POWER LAW MODEL (LAYER 3) - FORMULA ID 901
+================================================================================
 
-Based on: Giovanni Santostasi's Bitcoin Power Law research
-Source: https://bitcoinfairprice.com/
+ARCHITECTURE REFERENCE: docs/BLOCKCHAIN_PIPELINE_ARCHITECTURE.md
 
-Formula: Price = 10^(a + b * log10(days_since_genesis))
-Where:
-  - a = -17.01 (intercept)
-  - b = 5.82 (slope)
-  - days_since_genesis = days since Jan 3, 2009
+POSITION IN PIPELINE:
+    This is a LAYER 3 data source - provides fair value to higher layers.
+    Used by: BlockchainUnifiedFeed (L1), BlockchainTradingEngine (L2)
 
-This model has shown 93%+ correlation with actual Bitcoin price over 14+ years.
+FORMULA ID: 901 (Power Law Price)
+    Type:   LEADING indicator (timestamp only, no price input)
+    Input:  Unix timestamp
+    Output: Fair value price, support, resistance
 
-The Power Law derives price from:
-1. TIME (pure blockchain data - block timestamps)
-2. NETWORK EFFECT (implicit in the model)
-3. ADOPTION CURVE (S-curve built into power law)
+MATHEMATICAL MODEL:
+    Based on: Giovanni Santostasi's Bitcoin Power Law research
+    Source: https://bitcoinfairprice.com/, https://bitbo.io
+
+    Formula: Price = 10^(a + b * log10(days_since_genesis))
+    Where:
+      - a = -17.0161223 (intercept, 7 decimal precision from bitbo.io)
+      - b = 5.8451542 (slope, 7 decimal precision)
+      - days_since_genesis = days since Jan 1, 2009
+
+    Support/Resistance:
+      - Support:    Fair Value * 0.42 (strong floor)
+      - Resistance: Fair Value * 2.38 (strong ceiling)
+
+EMPIRICAL VALIDATION:
+    - R² = 93%+ correlation with actual Bitcoin price over 14+ years
+    - Works across 8+ orders of magnitude ($0.01 to $100k+)
+    - Predicted price within 1 std dev most of the time
+
+WHY THIS IS A LEADING INDICATOR:
+    - Derived ONLY from blockchain time (block timestamps)
+    - No exchange API dependency
+    - Zero latency (pure math)
+    - Network effect implicit in the model
+    - Adoption curve built into power law
 
 NO EXCHANGE DATA NEEDED - Pure mathematical derivation from blockchain time.
+================================================================================
 """
 
 import time
