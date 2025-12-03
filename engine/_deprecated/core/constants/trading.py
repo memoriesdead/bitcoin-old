@@ -59,7 +59,7 @@ FLOW_FOLLOWING: bool = True       # Trade WITH flow, not against
 # Master Equation: Capital(t) = Capital(0) × (1 + f × edge)^n
 # Sources: Kelly (1956), Thorp (2007), Cont-Stoikov (2014)
 
-RENAISSANCE_INITIAL_CAPITAL: float = 100.0   # Starting capital
+RENAISSANCE_INITIAL_CAPITAL: float = 5.0     # Starting capital ($5 test)
 RENAISSANCE_TARGET_CAPITAL: float = 10000.0  # 100x goal
 
 # Kelly Criterion - Quarter-Kelly for safety

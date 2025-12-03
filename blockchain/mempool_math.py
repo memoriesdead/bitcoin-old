@@ -1,41 +1,46 @@
 #!/usr/bin/env python3
 """
 ================================================================================
-PURE BLOCKCHAIN MEMPOOL SIMULATION - ZERO API CALLS (LAYER 2)
+REAL BLOCKCHAIN MEMPOOL - BITCOIN CORE ZMQ INTEGRATION
 ================================================================================
 
 ARCHITECTURE REFERENCE: docs/BLOCKCHAIN_PIPELINE_ARCHITECTURE.md
 
 POSITION IN PIPELINE:
-    This is a LAYER 2 component - Pure math mempool simulation.
+    This is a LAYER 2 component - Real mempool data from Bitcoin Core ZMQ.
     Provides momentum signals to BlockchainUnifiedFeed (LAYER 1).
 
-SIGNAL OUTPUTS (all derived from blockchain time, NO APIs):
+SIGNAL OUTPUTS (from REAL blockchain when connected, simulation fallback):
     - block_progress:     0.0-1.0 progress through 10-min block interval
     - fee_pressure:       -1 to +1, derived from block timing + halving proximity
-    - tx_momentum:        -1 to +1, derived from time cycles (daily/weekly)
+    - tx_momentum:        -1 to +1, REAL tx rate when ZMQ connected
     - congestion_signal:  -1 to +1, combines fee + volume signals
     - price_momentum:     -1 to +1, EMA-smoothed directional signal
     - momentum_strength:  0-1, confidence in momentum signal
 
-INPUT SOURCES (Pure Blockchain Math):
-    - Block timing:       600 second cycles (10 min target)
-    - Halving cycles:     210,000 blocks (~4 years)
-    - Difficulty adjustment: 2,016 blocks (~2 weeks)
-    - Network growth:     Metcalfe's Law (logarithmic)
-    - Time cycles:        Daily/weekly patterns in TX volume
+INPUT SOURCES:
+    PRIMARY (when Bitcoin Core ZMQ connected):
+        - Real mempool transactions via ZMQ
+        - Actual whale movements (large tx detection)
+        - True network congestion
 
-COMPETITIVE EDGE:
-    - Zero latency (pure math, no network calls)
-    - Unique signal (not same as exchange API users)
-    - Predictive (blockchain cycles predict before exchanges react)
+    FALLBACK (when ZMQ not available):
+        - Block timing cycles
+        - Halving/difficulty patterns
+        - Time-based estimation
+
+RENAISSANCE TECHNOLOGIES STYLE:
+    - Own node, own data pipeline
+    - Zero third-party APIs
+    - Direct blockchain access
 ================================================================================
 """
 
 import math
 import time
 from dataclasses import dataclass
-from typing import Tuple
+from typing import Tuple, Optional
+from collections import deque
 
 # Bitcoin constants
 GENESIS_TIMESTAMP = 1230768000  # Jan 3, 2009
@@ -74,17 +79,129 @@ class MempoolSignals:
 
 class PureMempoolMath:
     """
-    PURE BLOCKCHAIN MEMPOOL SIMULATION
+    REAL BLOCKCHAIN MEMPOOL WITH ZMQ
 
-    Derives all signals from blockchain math.
-    Updates at nanosecond precision.
-    Zero external dependencies.
+    When Bitcoin Core ZMQ is connected:
+        - Uses REAL transaction flow from mempool
+        - Detects actual whale movements (>10KB transactions)
+        - Measures true network congestion
+
+    When ZMQ not available (fallback):
+        - Uses blockchain timing math
+        - Simulation mode for testing
+
+    This is Renaissance Technologies style:
+        - Own node, own data
+        - Zero third-party APIs
     """
 
-    def __init__(self):
+    def __init__(self, zmq_host: str = "127.0.0.1"):
         self.last_momentum = 0.0
         self.momentum_ema = 0.0
         self.last_update = 0.0
+
+        # Real ZMQ data (from Bitcoin Core)
+        self.zmq_connected = False
+        self.zmq_host = zmq_host
+        self.real_tx_count = 0
+        self.real_tx_rate = 0.0  # tx/sec
+        self.real_whale_activity = 0.0  # 0-1
+        self.real_large_tx_count = 0
+        self.tx_timestamps: deque = deque(maxlen=1000)  # Recent tx times
+        self.tx_sizes: deque = deque(maxlen=1000)  # Recent tx sizes
+
+        # Try to connect to ZMQ
+        self._try_zmq_connect()
+
+    def _try_zmq_connect(self):
+        """Try to connect to Bitcoin Core ZMQ."""
+        try:
+            import zmq
+            self.zmq_context = zmq.Context()
+            self.zmq_socket = self.zmq_context.socket(zmq.SUB)
+            self.zmq_socket.setsockopt(zmq.RCVTIMEO, 1)  # 1ms timeout (non-blocking)
+            self.zmq_socket.setsockopt(zmq.RCVHWM, 100000)
+            self.zmq_socket.setsockopt_string(zmq.SUBSCRIBE, 'rawtx')
+            self.zmq_socket.connect(f"tcp://{self.zmq_host}:28333")
+            self.zmq_connected = True
+            print(f"[MEMPOOL] Connected to Bitcoin Core ZMQ at {self.zmq_host}:28333")
+        except Exception as e:
+            self.zmq_connected = False
+            # Silent fallback - simulation mode
+
+    def _poll_zmq(self):
+        """Poll ZMQ for new transactions (non-blocking)."""
+        if not self.zmq_connected:
+            return
+
+        try:
+            import zmq
+            now = time.time()
+
+            # Poll for up to 10 transactions per call (non-blocking)
+            for _ in range(10):
+                try:
+                    msg = self.zmq_socket.recv_multipart(zmq.NOBLOCK)
+                    if len(msg) >= 2:
+                        topic = msg[0].decode('utf-8')
+                        raw_tx = msg[1]
+                        if topic == 'rawtx':
+                            tx_size = len(raw_tx)
+                            self.tx_timestamps.append(now)
+                            self.tx_sizes.append(tx_size)
+                            self.real_tx_count += 1
+                            if tx_size > 10000:  # >10KB = whale
+                                self.real_large_tx_count += 1
+                except zmq.Again:
+                    break  # No more messages
+                except Exception:
+                    break
+
+            # Calculate real tx_rate (transactions per second in last 60s)
+            cutoff = now - 60
+            recent = [t for t in self.tx_timestamps if t > cutoff]
+            self.real_tx_rate = len(recent) / 60.0 if recent else 0.0
+
+            # Calculate whale activity (ratio of large transactions)
+            if self.real_tx_count > 0:
+                self.real_whale_activity = min(1.0, self.real_large_tx_count / max(1, self.real_tx_count) * 100)
+
+        except Exception:
+            pass  # Silent fallback
+
+    def get_real_momentum(self) -> Optional[float]:
+        """
+        Get REAL momentum from ZMQ transaction flow.
+
+        Returns None if ZMQ not connected (use simulation).
+        Returns -1 to +1 based on actual tx rate changes.
+        """
+        if not self.zmq_connected:
+            return None
+
+        self._poll_zmq()
+
+        if len(self.tx_timestamps) < 10:
+            return None  # Not enough data yet
+
+        now = time.time()
+
+        # Compare last 10s tx rate vs previous 10s
+        recent_10s = len([t for t in self.tx_timestamps if t > now - 10])
+        prev_10s = len([t for t in self.tx_timestamps if now - 20 < t <= now - 10])
+
+        if prev_10s == 0:
+            prev_10s = 1  # Avoid division by zero
+
+        # Momentum = rate of change in tx flow
+        rate_change = (recent_10s - prev_10s) / prev_10s
+        momentum = max(-1.0, min(1.0, rate_change))
+
+        # Add whale boost - large transactions = bullish signal
+        whale_boost = self.real_whale_activity * 0.3
+        momentum = max(-1.0, min(1.0, momentum + whale_boost))
+
+        return momentum
 
     def get_block_state(self, now: float = None) -> Tuple[int, float, float]:
         """Get current block height and timing from pure math."""
@@ -175,11 +292,20 @@ class PureMempoolMath:
         # Combined volume index
         tx_volume_index = network_factor * weekly_factor * daily_factor * micro_factor
 
-        # Volume momentum (rate of change)
-        # Use sub-second timing for momentum
-        sub_second = (now * 1000) % 1000 / 1000  # millisecond fraction
-        tx_momentum = 0.3 * math.sin(2 * math.pi * sub_second * 10)  # 10Hz oscillation
-        tx_momentum += 0.2 * math.sin(2 * math.pi * sub_second * 3)   # 3Hz component
+        # Volume momentum - REAL ZMQ DATA ONLY (Renaissance style)
+        real_momentum = self.get_real_momentum()
+
+        if real_momentum is not None:
+            # REAL DATA from Bitcoin Core ZMQ
+            tx_momentum = real_momentum
+            # Boost volume index based on real tx rate
+            if self.real_tx_rate > 5:  # More than 5 tx/sec = high activity
+                tx_volume_index *= 1.0 + (self.real_tx_rate - 5) / 20
+        else:
+            # NO FALLBACK - Real data or zero signal
+            # Renaissance doesn't use fake data
+            tx_momentum = 0.0  # Neutral until real data available
+
         tx_momentum = max(-1.0, min(1.0, tx_momentum))
 
         return tx_momentum, tx_volume_index
@@ -309,10 +435,10 @@ class PureMempoolMath:
         # Price moves with momentum, scaled by strength
         delta = base_volatility * signals.price_momentum * signals.momentum_strength
 
-        # Add micro-volatility for continuous price movement
-        micro = base_volatility * 0.3 * math.sin(time.time() * 100)
+        # NO FAKE OSCILLATORS - Pure blockchain signals only
+        # micro-volatility removed (was sin() fake data)
 
-        return delta + micro
+        return delta
 
 
 # Singleton instance

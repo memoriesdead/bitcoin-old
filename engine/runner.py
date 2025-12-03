@@ -8,12 +8,24 @@ Usage:
     python -m engine.runner [engine_type] [capital]
 
 Engine Types:
-    hft        - HFT Engine (tick-level simulated trading)
+    blockchain  - UNIFIED BLOCKCHAIN ENGINE (paper or live)
+    paper       - Paper trading on blockchain (no real money)
+    live        - LIVE trading on blockchain (REAL MONEY)
+    hft         - HFT Engine (historical simulation - LEGACY)
     renaissance - Renaissance Compounding ($100 → $10,000)
 
 Examples:
-    python -m engine.runner hft 100
-    python -m engine.runner renaissance 100
+    python -m engine.runner paper 5         # Paper trade with $5
+    python -m engine.runner live 5          # Live trade with $5
+    python -m engine.runner blockchain 100  # Default paper trading
+    python -m engine.runner hft 100         # Legacy simulation
+
+Environment Variables (for live trading):
+    HL_PRIVATE_KEY    - Hyperliquid wallet private key
+    MONAD_PRIVATE_KEY - Monad wallet private key
+    SEI_MNEMONIC      - Sei wallet mnemonic
+    INJ_MNEMONIC      - Injective wallet mnemonic
+    DYDX_MNEMONIC     - dYdX wallet mnemonic
 """
 import os
 import sys
@@ -193,6 +205,78 @@ def run_renaissance_engine(capital: float = 100.0, target: float = 10000.0):
     print("=" * 70)
 
 
+def run_blockchain_engine(capital: float = 100.0, paper: bool = True):
+    """
+    Run the UNIFIED BLOCKCHAIN ENGINE.
+
+    This is THE engine - one codebase for paper and live trading.
+    The only difference is whether orders are submitted to blockchain.
+
+    Args:
+        capital: Starting capital
+        paper: True = paper trading (no real orders), False = live trading
+    """
+    import asyncio
+    from engine.unified_blockchain_engine import (
+        UnifiedBlockchainEngine, UnifiedConfig, ExecutionMode
+    )
+
+    # Safety warning for live trading
+    if not paper:
+        print("\n" + "!" * 70)
+        print("! WARNING: LIVE TRADING MODE - REAL MONEY AT RISK !")
+        print("!" * 70)
+        if capital <= 0:
+            print("\nERROR: Must specify capital for live trading")
+            return
+        print(f"\nCapital: ${capital:.2f}")
+        print("\nPress Enter to continue or Ctrl+C to abort...")
+        try:
+            input()
+        except KeyboardInterrupt:
+            print("\nAborted.")
+            return
+
+    config = UnifiedConfig(
+        capital=capital,
+        mode=ExecutionMode.PAPER if paper else ExecutionMode.LIVE,
+    )
+
+    engine = UnifiedBlockchainEngine(config)
+
+    async def _run():
+        if await engine.start():
+            await engine.run()
+
+    asyncio.run(_run())
+
+
+def run_live_engine(capital: float = 100.0, testnet: bool = True, node_url: str = None):
+    """
+    Run LIVE trading on Hyperliquid (LEGACY - use run_blockchain_engine instead).
+
+    WARNING: This trades REAL money!
+    """
+    import asyncio
+    from engine.live_runner import LiveTrader, LiveConfig
+
+    config = LiveConfig(
+        capital=capital,
+        testnet=testnet,
+        node_url=node_url,
+    )
+
+    trader = LiveTrader(config)
+
+    async def _run():
+        if await trader.initialize():
+            await trader.run()
+        else:
+            print("\nInitialization failed.")
+
+    asyncio.run(_run())
+
+
 def main():
     """Main entry point."""
     # Apply HFT optimizations if available
@@ -208,22 +292,51 @@ def main():
         pass
 
     # Parse arguments
-    engine_type = 'hft'
+    engine_type = 'blockchain'  # Default to unified blockchain engine
     capital = 100.0
+    testnet = True
+    node_url = None
+    paper_mode = True  # Default to paper trading
 
-    if len(sys.argv) > 1:
-        engine_type = sys.argv[1].lower()
-    if len(sys.argv) > 2:
-        try:
-            capital = float(sys.argv[2])
-        except ValueError:
-            pass
+    for arg in sys.argv[1:]:
+        if arg.lower() in ['hft', 'renaissance', 'live', 'paper', 'blockchain']:
+            engine_type = arg.lower()
+            if arg.lower() == 'live':
+                paper_mode = False
+            elif arg.lower() == 'paper':
+                paper_mode = True
+                engine_type = 'blockchain'
+        elif arg == '--mainnet':
+            testnet = False
+        elif arg == '--testnet':
+            testnet = True
+        elif arg == '--live':
+            paper_mode = False
+        elif arg == '--paper':
+            paper_mode = True
+        elif arg.startswith('--node='):
+            node_url = arg.split('=')[1]
+        else:
+            try:
+                capital = float(arg)
+            except ValueError:
+                pass
 
     # Run appropriate engine
-    if engine_type == 'renaissance':
+    if engine_type == 'blockchain' or engine_type == 'paper':
+        # Unified blockchain engine (paper trading by default)
+        run_blockchain_engine(capital=capital, paper=paper_mode)
+    elif engine_type == 'live':
+        # Live blockchain trading
+        run_blockchain_engine(capital=capital, paper=False)
+    elif engine_type == 'renaissance':
         run_renaissance_engine(capital=capital)
-    else:
+    elif engine_type == 'hft':
+        # Legacy HFT simulation
         run_hft_engine(capital=capital)
+    else:
+        # Default to blockchain paper trading
+        run_blockchain_engine(capital=capital, paper=True)
 
 
 if __name__ == "__main__":

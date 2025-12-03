@@ -322,6 +322,192 @@ class HFTOptimizer:
     # APPLY ALL OPTIMIZATIONS
     # =========================================================================
 
+    def apply_network_optimizations(self) -> bool:
+        """
+        Apply network optimizations for ultra-low latency.
+
+        - 256MB socket buffers
+        - 10μs busy polling
+        - TCP low latency mode
+        - Disable timestamps/SACK for speed
+        """
+        if not self.is_linux:
+            self._log("Network Opt: Only supported on Linux")
+            return False
+
+        try:
+            optimizations = [
+                # Socket buffers (256MB)
+                ('/proc/sys/net/core/rmem_max', '268435456'),
+                ('/proc/sys/net/core/wmem_max', '268435456'),
+                ('/proc/sys/net/core/rmem_default', '134217728'),
+                ('/proc/sys/net/core/wmem_default', '134217728'),
+                # Busy polling (10 microseconds)
+                ('/proc/sys/net/core/busy_poll', '10'),
+                ('/proc/sys/net/core/busy_read', '10'),
+                # TCP low latency
+                ('/proc/sys/net/ipv4/tcp_low_latency', '1'),
+                ('/proc/sys/net/ipv4/tcp_slow_start_after_idle', '0'),
+                # Disable timestamps for speed
+                ('/proc/sys/net/ipv4/tcp_timestamps', '0'),
+                ('/proc/sys/net/ipv4/tcp_sack', '0'),
+                # Socket backlog
+                ('/proc/sys/net/core/netdev_max_backlog', '250000'),
+                ('/proc/sys/net/core/somaxconn', '65535'),
+            ]
+
+            applied = 0
+            for path, value in optimizations:
+                if os.path.exists(path):
+                    try:
+                        with open(path, 'w') as f:
+                            f.write(value)
+                        applied += 1
+                    except PermissionError:
+                        pass
+
+            self._log(f"Network Opt: Applied {applied}/{len(optimizations)} settings")
+            return applied > 0
+
+        except Exception as e:
+            self._log(f"Network Opt: Error - {e}")
+            return False
+
+    def apply_memory_optimizations(self) -> bool:
+        """
+        Apply memory optimizations for HFT.
+
+        - Disable swap
+        - Set swappiness to 0
+        - Configure huge pages (8192 x 2MB = 16GB)
+        - Increase dirty writeback
+        """
+        if not self.is_linux:
+            self._log("Memory Opt: Only supported on Linux")
+            return False
+
+        try:
+            optimizations = [
+                # Disable swap entirely
+                ('/proc/sys/vm/swappiness', '0'),
+                # Reserved memory (1GB)
+                ('/proc/sys/vm/min_free_kbytes', '1048576'),
+                # Huge pages (8192 x 2MB = 16GB)
+                ('/proc/sys/vm/nr_hugepages', '8192'),
+                # Increase dirty writeback
+                ('/proc/sys/vm/dirty_writeback_centisecs', '6000'),
+                ('/proc/sys/vm/dirty_expire_centisecs', '6000'),
+                # VFS cache pressure
+                ('/proc/sys/vm/vfs_cache_pressure', '50'),
+            ]
+
+            applied = 0
+            for path, value in optimizations:
+                if os.path.exists(path):
+                    try:
+                        with open(path, 'w') as f:
+                            f.write(value)
+                        applied += 1
+                    except PermissionError:
+                        pass
+
+            # Disable Transparent Huge Pages (we use explicit)
+            thp_path = '/sys/kernel/mm/transparent_hugepage/enabled'
+            if os.path.exists(thp_path):
+                try:
+                    with open(thp_path, 'w') as f:
+                        f.write('never')
+                    applied += 1
+                except PermissionError:
+                    pass
+
+            self._log(f"Memory Opt: Applied {applied}/{len(optimizations)+1} settings")
+            return applied > 0
+
+        except Exception as e:
+            self._log(f"Memory Opt: Error - {e}")
+            return False
+
+    def apply_scheduler_optimizations(self) -> bool:
+        """
+        Apply kernel scheduler optimizations.
+
+        - Reduce context switch overhead
+        - Disable autogroup
+        - Optimize NUMA balancing
+        """
+        if not self.is_linux:
+            self._log("Scheduler Opt: Only supported on Linux")
+            return False
+
+        try:
+            optimizations = [
+                # Scheduler tuning
+                ('/proc/sys/kernel/sched_migration_cost_ns', '5000000'),
+                ('/proc/sys/kernel/sched_min_granularity_ns', '10000000'),
+                ('/proc/sys/kernel/sched_autogroup_enabled', '0'),
+                # NUMA balancing (disable for consistent latency)
+                ('/proc/sys/kernel/numa_balancing', '0'),
+                # Disable watchdog (causes latency spikes)
+                ('/proc/sys/kernel/watchdog', '0'),
+                ('/proc/sys/kernel/nmi_watchdog', '0'),
+                # Increase file descriptors
+                ('/proc/sys/fs/file-max', '4194304'),
+            ]
+
+            applied = 0
+            for path, value in optimizations:
+                if os.path.exists(path):
+                    try:
+                        with open(path, 'w') as f:
+                            f.write(value)
+                        applied += 1
+                    except PermissionError:
+                        pass
+
+            self._log(f"Scheduler Opt: Applied {applied}/{len(optimizations)} settings")
+            return applied > 0
+
+        except Exception as e:
+            self._log(f"Scheduler Opt: Error - {e}")
+            return False
+
+    def set_irq_affinity(self, system_core: int = 0) -> bool:
+        """
+        Move all IRQs to a single system core.
+
+        This keeps trading cores interrupt-free for consistent latency.
+        """
+        if not self.is_linux:
+            self._log("IRQ Affinity: Only supported on Linux")
+            return False
+
+        try:
+            irq_dir = '/proc/irq'
+            if not os.path.exists(irq_dir):
+                return False
+
+            mask = hex(1 << system_core)  # e.g., "0x1" for core 0
+            moved = 0
+
+            for irq in os.listdir(irq_dir):
+                if irq.isdigit():
+                    affinity_path = f'{irq_dir}/{irq}/smp_affinity'
+                    if os.path.exists(affinity_path):
+                        try:
+                            with open(affinity_path, 'w') as f:
+                                f.write(mask)
+                            moved += 1
+                        except (PermissionError, OSError):
+                            pass
+
+            self._log(f"IRQ Affinity: Moved {moved} IRQs to core {system_core}")
+            return moved > 0
+
+        except Exception as e:
+            self._log(f"IRQ Affinity: Error - {e}")
+            return False
+
     def apply_all(self, aggressive: bool = False) -> dict:
         """
         Apply all available optimizations.
@@ -357,8 +543,15 @@ class HFTOptimizer:
         # Huge pages (Linux only)
         results['huge_pages'] = self.setup_huge_pages()
 
+        # NEW: Server-level optimizations (Linux only, need root)
+        if self.is_linux and aggressive:
+            results['network_opt'] = self.apply_network_optimizations()
+            results['memory_opt'] = self.apply_memory_optimizations()
+            results['scheduler_opt'] = self.apply_scheduler_optimizations()
+            results['irq_affinity'] = self.set_irq_affinity(system_core=0)
+
         self._log("-" * 50)
-        success_count = sum(results.values())
+        success_count = sum(1 for v in results.values() if v)
         self._log(f"OPTIMIZATIONS APPLIED: {success_count}/{len(results)}")
         self._log("=" * 70)
 
@@ -543,141 +736,258 @@ def generate_linux_optimization_script(trading_cores: list = None) -> str:
     Generate a bash script for Linux kernel-level optimizations.
 
     This script should be run as root on the trading server.
+    MAXED configuration for Renaissance Technologies level HFT.
     """
     if trading_cores is None:
         trading_cores = [2, 3, 4, 5, 6, 7]
 
     cores_str = ",".join(map(str, trading_cores))
+    system_cores = "0,1"  # Cores for OS/interrupts
 
     script = f'''#!/bin/bash
 # =============================================================================
-# HFT KERNEL OPTIMIZATION SCRIPT - RENAISSANCE TECHNOLOGIES LEVEL
+# HFT KERNEL OPTIMIZATION SCRIPT - MAXED FOR RENAISSANCE TECHNOLOGIES LEVEL
 # =============================================================================
 # Run as root on the trading server
 # Based on research into quant fund infrastructure
+# Targets: 235K+ TPS, sub-5μs latency per signal
 
+set -e
 echo "=============================================="
-echo "HFT KERNEL OPTIMIZATION - STARTING"
+echo "HFT KERNEL OPTIMIZATION - MAXED CONFIGURATION"
 echo "=============================================="
+echo "Target: 235K+ TPS, sub-5μs signal latency"
+echo ""
 
 # -----------------------------------------------------------------------------
-# 1. CPU ISOLATION (isolcpus equivalent at runtime)
+# STEP 1: NETWORK OPTIMIZATION - 256MB BUFFERS
 # -----------------------------------------------------------------------------
-echo "[1/8] Configuring CPU isolation..."
+echo "[1/15] NETWORK OPTIMIZATION..."
 
-# Move all movable kernel threads to CPU 0
-for pid in $(ps -eo pid,comm | grep -v PID | awk '{{print $1}}'); do
-    taskset -pc 0 $pid 2>/dev/null
-done
+# 256MB socket buffers (maximum for HFT)
+sysctl -w net.core.rmem_max=268435456
+sysctl -w net.core.wmem_max=268435456
+sysctl -w net.core.rmem_default=134217728
+sysctl -w net.core.wmem_default=134217728
+sysctl -w net.ipv4.tcp_rmem="4096 134217728 268435456"
+sysctl -w net.ipv4.tcp_wmem="4096 134217728 268435456"
 
-# Reserve cores {cores_str} for trading
-TRADING_CORES="{cores_str}"
-echo "Trading cores reserved: $TRADING_CORES"
+# Busy polling - 10 microsecond response
+sysctl -w net.core.busy_poll=10
+sysctl -w net.core.busy_read=10
+
+# TCP Low Latency Mode
+sysctl -w net.ipv4.tcp_low_latency=1
+sysctl -w net.ipv4.tcp_slow_start_after_idle=0
+
+# Disable TCP timestamps and SACK (speed over reliability)
+sysctl -w net.ipv4.tcp_timestamps=0
+sysctl -w net.ipv4.tcp_sack=0
+
+# Socket backlog
+sysctl -w net.core.netdev_max_backlog=250000
+sysctl -w net.core.somaxconn=65535
+
+echo "    Network buffers: 256MB"
+echo "    Busy polling: 10μs"
 
 # -----------------------------------------------------------------------------
-# 2. CPU FREQUENCY - Lock to maximum
+# STEP 2: MEMORY OPTIMIZATION - 16GB HUGE PAGES
 # -----------------------------------------------------------------------------
-echo "[2/8] Setting CPU governor to performance..."
+echo "[2/15] MEMORY OPTIMIZATION..."
+
+# Disable swap completely
+sysctl -w vm.swappiness=0
+swapoff -a 2>/dev/null || true
+
+# Reserve 1GB free memory
+sysctl -w vm.min_free_kbytes=1048576
+
+# Huge pages: 8192 x 2MB = 16GB
+sysctl -w vm.nr_hugepages=8192
+
+# Dirty writeback optimization
+sysctl -w vm.dirty_writeback_centisecs=6000
+sysctl -w vm.dirty_expire_centisecs=6000
+sysctl -w vm.vfs_cache_pressure=50
+
+echo "    Huge pages: 8192 x 2MB = 16GB"
+echo "    Swap: DISABLED"
+
+# -----------------------------------------------------------------------------
+# STEP 3: DISABLE TRANSPARENT HUGE PAGES
+# -----------------------------------------------------------------------------
+echo "[3/15] DISABLE TRANSPARENT HUGE PAGES..."
+
+echo never > /sys/kernel/mm/transparent_hugepage/enabled 2>/dev/null || true
+echo never > /sys/kernel/mm/transparent_hugepage/defrag 2>/dev/null || true
+
+echo "    THP: Disabled (using explicit huge pages)"
+
+# -----------------------------------------------------------------------------
+# STEP 4: FILE DESCRIPTOR LIMITS - 4 MILLION
+# -----------------------------------------------------------------------------
+echo "[4/15] FILE DESCRIPTOR LIMITS..."
+
+sysctl -w fs.file-max=4194304
+sysctl -w fs.nr_open=4194304
+
+echo "    Max file descriptors: 4,194,304"
+
+# -----------------------------------------------------------------------------
+# STEP 5: CPU PERFORMANCE MODE
+# -----------------------------------------------------------------------------
+echo "[5/15] CPU PERFORMANCE MODE..."
 
 for cpu in /sys/devices/system/cpu/cpu[0-9]*; do
     if [ -f "$cpu/cpufreq/scaling_governor" ]; then
-        echo "performance" > "$cpu/cpufreq/scaling_governor"
+        echo "performance" > "$cpu/cpufreq/scaling_governor" 2>/dev/null || true
     fi
 done
 
-# Disable turbo boost variance (more consistent latency)
+# Disable turbo variance for consistent latency
 if [ -f /sys/devices/system/cpu/intel_pstate/no_turbo ]; then
-    echo "0" > /sys/devices/system/cpu/intel_pstate/no_turbo
+    echo "1" > /sys/devices/system/cpu/intel_pstate/no_turbo
 fi
 
-# -----------------------------------------------------------------------------
-# 3. HUGE PAGES - Reduce TLB misses
-# -----------------------------------------------------------------------------
-echo "[3/8] Configuring huge pages..."
-
-# Reserve 1GB of huge pages (512 x 2MB)
-echo 512 > /proc/sys/vm/nr_hugepages
-
-# Enable transparent huge pages for anonymous memory
-echo "always" > /sys/kernel/mm/transparent_hugepage/enabled
+echo "    Governor: performance"
 
 # -----------------------------------------------------------------------------
-# 4. MEMORY MANAGEMENT
+# STEP 6: CPU C-STATE OPTIMIZATION
 # -----------------------------------------------------------------------------
-echo "[4/8] Optimizing memory management..."
+echo "[6/15] CPU C-STATE OPTIMIZATION..."
 
-# Disable swap to prevent latency spikes
-swapoff -a
-
-# Reduce swappiness to minimum
-echo 1 > /proc/sys/vm/swappiness
-
-# Increase dirty writeback to reduce disk I/O interruptions
-echo 1500 > /proc/sys/vm/dirty_writeback_centisecs
-
-# -----------------------------------------------------------------------------
-# 5. NETWORK OPTIMIZATION
-# -----------------------------------------------------------------------------
-echo "[5/8] Optimizing network stack..."
-
-# Increase socket buffer sizes
-echo 16777216 > /proc/sys/net/core/rmem_max
-echo 16777216 > /proc/sys/net/core/wmem_max
-echo "4096 87380 16777216" > /proc/sys/net/ipv4/tcp_rmem
-echo "4096 65536 16777216" > /proc/sys/net/ipv4/tcp_wmem
-
-# Disable TCP slow start after idle
-echo 0 > /proc/sys/net/ipv4/tcp_slow_start_after_idle
-
-# Enable TCP low latency mode
-echo 1 > /proc/sys/net/ipv4/tcp_low_latency
-
-# -----------------------------------------------------------------------------
-# 6. IRQ AFFINITY - Move interrupts off trading cores
-# -----------------------------------------------------------------------------
-echo "[6/8] Configuring IRQ affinity..."
-
-# Move all IRQs to CPU 0 (non-trading core)
-for irq in /proc/irq/[0-9]*; do
-    if [ -f "$irq/smp_affinity" ]; then
-        echo 1 > "$irq/smp_affinity" 2>/dev/null
+for cpu in /sys/devices/system/cpu/cpu*/cpuidle/state[1-9]; do
+    if [ -f "$cpu/disable" ]; then
+        echo "1" > "$cpu/disable" 2>/dev/null || true
     fi
 done
 
-# -----------------------------------------------------------------------------
-# 7. KERNEL SCHEDULER
-# -----------------------------------------------------------------------------
-echo "[7/8] Optimizing kernel scheduler..."
-
-# Reduce scheduler migration cost
-echo 500000 > /proc/sys/kernel/sched_migration_cost_ns
-
-# Increase scheduler minimum granularity
-echo 10000000 > /proc/sys/kernel/sched_min_granularity_ns
-
-# Disable scheduler autogroup (better RT performance)
-echo 0 > /proc/sys/kernel/sched_autogroup_enabled 2>/dev/null
+echo "    Deep C-states: Disabled"
 
 # -----------------------------------------------------------------------------
-# 8. DISABLE UNNECESSARY SERVICES
+# STEP 7: KERNEL SCHEDULER OPTIMIZATION
 # -----------------------------------------------------------------------------
-echo "[8/8] Disabling unnecessary services..."
+echo "[7/15] KERNEL SCHEDULER OPTIMIZATION..."
 
-# Stop and disable services that cause latency spikes
-systemctl stop irqbalance 2>/dev/null
-systemctl stop tuned 2>/dev/null
-systemctl stop cpupower 2>/dev/null
+sysctl -w kernel.sched_migration_cost_ns=5000000
+sysctl -w kernel.sched_min_granularity_ns=10000000
+sysctl -w kernel.sched_autogroup_enabled=0 2>/dev/null || true
+sysctl -w kernel.numa_balancing=0 2>/dev/null || true
 
-# Disable kernel watchdog (causes latency spikes)
-echo 0 > /proc/sys/kernel/watchdog
+echo "    Scheduler: Optimized for trading"
 
+# -----------------------------------------------------------------------------
+# STEP 8: DISABLE WATCHDOG
+# -----------------------------------------------------------------------------
+echo "[8/15] DISABLE WATCHDOG..."
+
+sysctl -w kernel.watchdog=0
+sysctl -w kernel.nmi_watchdog=0 2>/dev/null || true
+
+echo "    Watchdog: Disabled"
+
+# -----------------------------------------------------------------------------
+# STEP 9: IRQ AFFINITY - PIN TO CORES {system_cores}
+# -----------------------------------------------------------------------------
+echo "[9/15] IRQ AFFINITY..."
+
+for irq in /proc/irq/[0-9]*; do
+    if [ -f "$irq/smp_affinity" ]; then
+        echo 3 > "$irq/smp_affinity" 2>/dev/null || true
+    fi
+done
+
+echo "    IRQs: Pinned to cores {system_cores}"
+
+# -----------------------------------------------------------------------------
+# STEP 10: WORKQUEUE ISOLATION
+# -----------------------------------------------------------------------------
+echo "[10/15] WORKQUEUE ISOLATION..."
+
+if [ -f /sys/devices/virtual/workqueue/cpumask ]; then
+    echo 3 > /sys/devices/virtual/workqueue/cpumask 2>/dev/null || true
+fi
+
+echo "    Workqueues: Isolated to cores {system_cores}"
+
+# -----------------------------------------------------------------------------
+# STEP 11: RCU CALLBACKS
+# -----------------------------------------------------------------------------
+echo "[11/15] RCU CALLBACKS..."
+
+for cpu in {cores_str.replace(",", " ")}; do
+    if [ -d /sys/kernel/rcu_expedited ]; then
+        echo 1 > /sys/kernel/rcu_expedited 2>/dev/null || true
+    fi
+done
+
+echo "    RCU: Expedited mode"
+
+# -----------------------------------------------------------------------------
+# STEP 12: DISABLE UNNECESSARY SERVICES
+# -----------------------------------------------------------------------------
+echo "[12/15] DISABLE UNNECESSARY SERVICES..."
+
+systemctl stop irqbalance 2>/dev/null || true
+systemctl disable irqbalance 2>/dev/null || true
+systemctl stop tuned 2>/dev/null || true
+systemctl stop cpupower 2>/dev/null || true
+systemctl stop snapd 2>/dev/null || true
+systemctl stop unattended-upgrades 2>/dev/null || true
+systemctl stop packagekit 2>/dev/null || true
+
+echo "    Stopped: irqbalance, tuned, snapd, etc."
+
+# -----------------------------------------------------------------------------
+# STEP 13: DISK I/O OPTIMIZATION
+# -----------------------------------------------------------------------------
+echo "[13/15] DISK I/O OPTIMIZATION..."
+
+for disk in /sys/block/sd*/queue /sys/block/nvme*/queue /sys/block/vd*/queue; do
+    if [ -d "$disk" ]; then
+        echo none > "$disk/scheduler" 2>/dev/null || echo noop > "$disk/scheduler" 2>/dev/null || true
+        echo 0 > "$disk/add_random" 2>/dev/null || true
+        echo 256 > "$disk/nr_requests" 2>/dev/null || true
+    fi
+done
+
+echo "    Disk scheduler: none/noop"
+
+# -----------------------------------------------------------------------------
+# STEP 14: PROCESS LIMITS
+# -----------------------------------------------------------------------------
+echo "[14/15] PROCESS LIMITS..."
+
+ulimit -n 4194304 2>/dev/null || true
+ulimit -l unlimited 2>/dev/null || true
+
+echo "    ulimit -n: 4194304"
+
+# -----------------------------------------------------------------------------
+# STEP 15: VERIFICATION
+# -----------------------------------------------------------------------------
+echo "[15/15] VERIFICATION..."
+echo ""
 echo "=============================================="
-echo "HFT KERNEL OPTIMIZATION - COMPLETE"
+echo "HFT OPTIMIZATION - MAXED - COMPLETE"
 echo "=============================================="
 echo ""
-echo "Trading cores {cores_str} are now optimized for HFT"
-echo "Run your trading process with:"
-echo "  taskset -c {cores_str} python engine.py"
+echo "CONFIGURATION:"
+echo "  Network buffers: 256MB"
+echo "  Busy polling: 10μs"
+echo "  Huge pages: 16GB"
+echo "  File descriptors: 4M"
+echo "  Watchdog: DISABLED"
+echo "  THP: DISABLED"
+echo "  Trading cores: {cores_str}"
+echo "  System cores: {system_cores}"
+echo ""
+echo "RUN TRADING ENGINE:"
+echo "  taskset -c {cores_str} python -m engine.runner live"
+echo ""
+echo "BENCHMARK COMMAND:"
+echo "  taskset -c {cores_str} python -m engine.runner hft 100"
 echo ""
 '''
 

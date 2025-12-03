@@ -201,11 +201,11 @@ class BlockchainUnifiedFeed:
         # Base price movement from momentum
         delta = self.volatility * momentum * strength
 
-        # Add micro-volatility for realistic tick movement
-        micro = self.volatility * 0.2 * math.sin(time.time() * 100)
+        # NO FAKE OSCILLATORS - Pure blockchain signals only
+        # micro-volatility removed (was sin() fake data)
 
         # Apply to current price
-        self.current_price = self.current_price * (1 + delta + micro)
+        self.current_price = self.current_price * (1 + delta)
 
         # Mean reversion toward fair value (weak)
         fair = self.power_law.calculate_fair_value()
