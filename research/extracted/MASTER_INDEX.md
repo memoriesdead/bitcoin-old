@@ -16,8 +16,11 @@
 | Risk Management | `risk_mgmt.md` | 223-238 | ✅ COMPLETE | 16 |
 | Top Journals | `journals.md` | 741-760 | ✅ COMPLETE | 20 |
 | QuantLib | `quantlib.md` | 811-900 | ✅ COMPLETE | 90 |
+| Gap Fill (Small) | `gaps_small.md` | 308-310, 427-475 | ✅ COMPLETE | 32 |
+| Gap Fill (Extended) | `gaps_524_589.md` | 524-589 | ✅ COMPLETE | 66 |
+| Gap Fill (Factors) | `gaps_720_740.md` | 720-740 | ✅ COMPLETE | 21 |
 
-**TOTAL EXTRACTED: 349 formulas**
+**TOTAL EXTRACTED: 468 formulas**
 
 ### Sources Used:
 - [Flashbots REV](https://writings.flashbots.net/quantifying-rev)
@@ -73,13 +76,19 @@
 - Dupire (1994) Risk - Local Volatility
 - Hagan et al. (2002) Wilmott - SABR Model
 - Longstaff & Schwartz (2001) RFS - American Options by Simulation
+- Engle (2002) J. Business & Econ Stats - DCC-GARCH
+- Hamilton (1989) Econometrica - Regime Switching
+- Fama & French (2015) J. Financial Economics - 5-Factor Model
+- Asness et al. (2019) J. Portfolio Management - Quality Minus Junk
+- Frazzini & Pedersen (2014) J. Financial Economics - Betting Against Beta
+- Black & Litterman (1992) Financial Analysts Journal - Global Portfolio Optimization
 
 ---
 
 ## NEXT AVAILABLE IDs
 
-- Filled: 223-238, 482-519, 591-719, 741-900
-- Remaining Gaps: 308-310, 427-430, 436-445, 454-460, 468-475, 524-589, 720-740
+- Filled: 223-238, 308-310, 427-475, 482-589, 591-900
+- Remaining Gaps: 239-307, 311-426, 476-481, 520-523, 590
 - Next Available: 901+
 
 ---
