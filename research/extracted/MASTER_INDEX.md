@@ -15,9 +15,9 @@
 | Blockchain MEV | `blockchain_mev.md` | 482-519 | ✅ COMPLETE | 38 |
 | Risk Management | `risk_mgmt.md` | 223-238 | ✅ COMPLETE | 16 |
 | Top Journals | `journals.md` | 741-760 | ✅ COMPLETE | 20 |
-| QuantLib | `quantlib.md` | 811-900 | PENDING | 0 |
+| QuantLib | `quantlib.md` | 811-900 | ✅ COMPLETE | 90 |
 
-**TOTAL EXTRACTED: 259 formulas**
+**TOTAL EXTRACTED: 349 formulas**
 
 ### Sources Used:
 - [Flashbots REV](https://writings.flashbots.net/quantifying-rev)
@@ -63,14 +63,24 @@
 - Jorion (2006) Value at Risk - VaR Decomposition
 - McNeil & Frey (2000) J. Empirical Finance - EVT
 - Maillard et al. (2010) J. Portfolio Management - Risk Parity
+- Vasicek (1977) J. Financial & Quantitative Analysis - Short Rate
+- Hull & White (1990) RFS - Interest Rate Derivatives
+- Brace, Gatarek, Musiela (1997) Mathematical Finance - LMM
+- Nelson & Siegel (1987) J. Business - Yield Curve
+- Glasserman (2003) "Monte Carlo Methods in Financial Engineering"
+- Wilmott (2006) "Paul Wilmott on Quantitative Finance"
+- Harrison & Kreps (1979) J. Economic Theory - Martingale Pricing
+- Dupire (1994) Risk - Local Volatility
+- Hagan et al. (2002) Wilmott - SABR Model
+- Longstaff & Schwartz (2001) RFS - American Options by Simulation
 
 ---
 
 ## NEXT AVAILABLE IDs
 
-- Filled: 223-238, 482-519, 591-719, 741-800
+- Filled: 223-238, 482-519, 591-719, 741-900
 - Remaining Gaps: 308-310, 427-430, 436-445, 454-460, 468-475, 524-589, 720-740
-- Next Available: 811+ (QuantLib)
+- Next Available: 901+
 
 ---
 
