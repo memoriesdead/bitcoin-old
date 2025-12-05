@@ -10,14 +10,26 @@
 | Source | File | IDs | Status | Formulas |
 |--------|------|-----|--------|----------|
 | USPTO Patents | `patents.md` | 591-640 | IN PROGRESS | 11 |
-| arXiv q-fin / Academic | `academic_core.md` | 641-719 | IN PROGRESS | 20 |
+| arXiv q-fin / Academic | `academic_core.md` | 641-719 | IN PROGRESS | 29 |
 | Hedge Fund SEC | `sec_filings.md` | 761-800 | PENDING | 0 |
 | Blockchain MEV | `blockchain_mev.md` | 482-519 | IN PROGRESS | 9 |
 | Risk Management | `risk_mgmt.md` | 223-238 | PENDING | 0 |
 | Top Journals | `journals.md` | 741-760 | PENDING | 0 |
 | QuantLib | `quantlib.md` | 811-900 | PENDING | 0 |
 
-**TOTAL EXTRACTED: 40 formulas**
+**TOTAL EXTRACTED: 49 formulas**
+
+### Sources Used:
+- [Flashbots REV](https://writings.flashbots.net/quantifying-rev)
+- [arXiv:2405.17944](https://arxiv.org/html/2405.17944v1) - MEV Sandwich Attacks
+- [arXiv:2408.03594](https://arxiv.org/html/2408.03594v1) - Hawkes Order Flow
+- [US8140416B2](https://patents.google.com/patent/US8140416B2/en) - Hidden Orders Patent
+- [US8719146B2](https://patents.google.com/patent/US8719146B2/en) - Micro Auction Patent
+- Kyle (1985) Econometrica - Market Impact
+- Almgren-Chriss (2000) J. Risk - Optimal Execution
+- Easley et al. (2012) RFS - VPIN
+- Heston (1993) RFS - Stochastic Volatility
+- Gatheral et al. (2018) Quant Finance - Rough Volatility
 
 ---
 

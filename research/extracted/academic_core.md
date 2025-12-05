@@ -253,4 +253,113 @@ class UrgencyParameter(BaseFormula):
 | 658 | VarianceShortfall | Almgren-Chriss (2000) | ✅ EXTRACTED |
 | 659 | MeanVarianceObjective | Almgren-Chriss (2000) | ✅ EXTRACTED |
 | 660 | KyleEquilibrium | Kyle (1985) | ✅ EXTRACTED |
-| 661-719 | - | - | PENDING |
+
+---
+
+## SOURCE 4: VPIN (Volume-Synchronized Probability)
+**Citation:** Easley, Lopez de Prado, O'Hara (2012) "Flow Toxicity and Liquidity" RFS
+**Status:** EXTRACTED
+
+### Formula 661: VPIN (Order Toxicity)
+```
+VPIN = (1/n) × Σ |V^B_τ - V^S_τ| / VBS
+```
+**Variables:**
+- n = number of volume buckets in sample
+- V^B_τ = buy volume in bucket τ
+- V^S_τ = sell volume in bucket τ
+- VBS = volume bucket size
+**Edge:** Predicts flash crashes, detects informed trading
+
+### Formula 662: Volume Bucket Size
+```
+VBS = Average_Daily_Volume / 50
+```
+**Edge:** Normalizes information content per bucket
+
+### Formula 663: Order Imbalance per Bucket
+```
+OI_τ = |V^B_τ - V^S_τ|
+```
+**Edge:** Measures directional pressure
+
+---
+
+## SOURCE 5: Heston Stochastic Volatility
+**Citation:** Heston (1993) "A Closed-Form Solution for Options with Stochastic Volatility" RFS
+**Status:** EXTRACTED
+
+### Formula 664: Heston Variance SDE
+```
+dv_t = κ(θ - v_t)dt + σ√v_t dW_t^v
+```
+**Variables:**
+- v_t = instantaneous variance
+- κ = mean reversion rate
+- θ = long-term variance
+- σ = vol of vol
+- dW_t^v = Wiener process
+**Edge:** Models volatility clustering, mean reversion
+
+### Formula 665: Heston Asset SDE
+```
+dS_t = μS_t dt + √v_t S_t dW_t^S
+```
+**Variables:**
+- Correlation: dW_t^S × dW_t^v = ρdt
+**Edge:** Captures leverage effect via ρ
+
+### Formula 666: Heston Characteristic Function (Core)
+```
+Ψ(u) = exp(C(u,τ) + D(u,τ)v_0 + iu ln(S_0))
+```
+**Edge:** Enables semi-analytical option pricing
+
+---
+
+## SOURCE 6: Rough Volatility
+**Citation:** Gatheral, Jaisson, Rosenbaum (2018) "Volatility is Rough" Quant Finance
+**Status:** EXTRACTED
+
+### Formula 667: Fractional Brownian Motion
+```
+W_t^H = ∫_0^t K_H(t,s) dW_s
+```
+**Variables:**
+- H = Hurst exponent (H < 0.5 for rough)
+- K_H = kernel function
+**Edge:** Models rough paths in volatility
+
+### Formula 668: Hurst Exponent from Realized Variance
+```
+E[|log(RV_{t+Δ}) - log(RV_t)|^q] ∝ Δ^(qH)
+```
+**Variables:**
+- H ≈ 0.1 empirically
+**Edge:** Volatility is rougher than Brownian motion
+
+### Formula 669: RFSV Model (Rough FSV)
+```
+log(v_t) = m + ν × fOU_t^H
+```
+**Variables:**
+- fOU = fractional Ornstein-Uhlenbeck
+- H < 0.5
+**Edge:** Predicts volatility better than GARCH/HAR
+
+---
+
+## EXTRACTION STATUS (CONTINUED)
+
+| ID | Name | Source | Status |
+|----|------|--------|--------|
+| 661 | VPIN | Easley et al. (2012) | ✅ EXTRACTED |
+| 662 | VolumeBucketSize | Easley et al. (2012) | ✅ EXTRACTED |
+| 663 | OrderImbalance | Easley et al. (2012) | ✅ EXTRACTED |
+| 664 | HestonVarianceSDE | Heston (1993) | ✅ EXTRACTED |
+| 665 | HestonAssetSDE | Heston (1993) | ✅ EXTRACTED |
+| 666 | HestonCharFunc | Heston (1993) | ✅ EXTRACTED |
+| 667 | FractionalBM | Gatheral et al. (2018) | ✅ EXTRACTED |
+| 668 | HurstFromRV | Gatheral et al. (2018) | ✅ EXTRACTED |
+| 669 | RFSVModel | Gatheral et al. (2018) | ✅ EXTRACTED |
+| 670-719 | - | - | PENDING |
