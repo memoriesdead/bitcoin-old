@@ -10,14 +10,14 @@
 | Source | File | IDs | Status | Formulas |
 |--------|------|-----|--------|----------|
 | USPTO Patents | `patents.md` | 591-640 | IN PROGRESS | 11 |
-| arXiv q-fin / Academic | `academic_core.md` | 641-719 | IN PROGRESS | 29 |
+| arXiv q-fin / Academic | `academic_core.md` | 641-719 | ✅ COMPLETE | 79 |
 | Hedge Fund SEC | `sec_filings.md` | 761-800 | PENDING | 0 |
 | Blockchain MEV | `blockchain_mev.md` | 482-519 | IN PROGRESS | 9 |
 | Risk Management | `risk_mgmt.md` | 223-238 | PENDING | 0 |
 | Top Journals | `journals.md` | 741-760 | PENDING | 0 |
 | QuantLib | `quantlib.md` | 811-900 | PENDING | 0 |
 
-**TOTAL EXTRACTED: 49 formulas**
+**TOTAL EXTRACTED: 99 formulas**
 
 ### Sources Used:
 - [Flashbots REV](https://writings.flashbots.net/quantifying-rev)
@@ -30,6 +30,20 @@
 - Easley et al. (2012) RFS - VPIN
 - Heston (1993) RFS - Stochastic Volatility
 - Gatheral et al. (2018) Quant Finance - Rough Volatility
+- Avellaneda & Stoikov (2008) Quant Finance - Market Making
+- Bollerslev (1986) J. Econometrics - GARCH
+- Nelson (1991) Econometrica - EGARCH
+- Uniswap V2 Whitepaper (2020) - AMM Pricing
+- Artzner et al. (1999) Mathematical Finance - Coherent Risk Measures
+- Black & Scholes (1973) J. Political Economy - Option Pricing
+- Fama & French (1993) J. Financial Economics - Factor Models
+- Merton (1976) J. Financial Economics - Jump Diffusion
+- Uhlenbeck & Ornstein (1930) Physical Review - Mean Reversion
+- Kelly (1956) Bell System Technical Journal - Optimal Betting
+- Sharpe (1966) Journal of Business - Performance Measurement
+- Sortino & Price (1994) Journal of Investing - Downside Risk
+- Vasicek (1977) J. Financial & Quantitative Analysis - Interest Rates
+- Cox, Ingersoll, Ross (1985) Econometrica - CIR Model
 
 ---
 

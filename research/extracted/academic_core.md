@@ -363,3 +363,583 @@ log(v_t) = m + ν × fOU_t^H
 | 668 | HurstFromRV | Gatheral et al. (2018) | ✅ EXTRACTED |
 | 669 | RFSVModel | Gatheral et al. (2018) | ✅ EXTRACTED |
 | 670-719 | - | - | PENDING |
+
+---
+
+## SOURCE 7: Avellaneda-Stoikov Market Making
+**Citation:** Avellaneda & Stoikov (2008) "High-frequency trading in a limit order book" Quantitative Finance
+**URL:** https://www.math.nyu.edu/~avellane/HighFrequencyTrading.pdf
+**Status:** EXTRACTED
+
+### Formula 670: Reservation Price
+```
+r(s,q,t) = s - q × γ × σ² × (T - t)
+```
+**Variables:**
+- s = mid-price
+- q = inventory position
+- γ = risk aversion coefficient
+- σ = volatility
+- T-t = time to horizon
+**Edge:** Adjusts fair value based on inventory risk
+
+### Formula 671: Optimal Bid-Ask Spread
+```
+δ(t) = γσ²(T-t) + (2/γ) × ln(1 + γ/k)
+```
+**Variables:**
+- k = order arrival intensity parameter
+**Edge:** Widens spread when inventory risk is high
+
+### Formula 672: Indifference Bid Price
+```
+p_b = r - δ/2
+```
+**Edge:** Where to place bid quote
+
+### Formula 673: Indifference Ask Price
+```
+p_a = r + δ/2
+```
+**Edge:** Where to place ask quote
+
+### Formula 674: Inventory Penalty Term
+```
+Penalty = q × γ × σ² × (T - t)
+```
+**Edge:** Risk from holding inventory
+
+---
+
+## SOURCE 8: GARCH Volatility Models
+**Citation:** Bollerslev (1986) "Generalized Autoregressive Conditional Heteroskedasticity" J. Econometrics
+**Status:** EXTRACTED
+
+### Formula 675: GARCH(1,1) Variance
+```
+σ²_t = ω + α × ε²_{t-1} + β × σ²_{t-1}
+```
+**Variables:**
+- ω = long-run variance weight
+- α = ARCH coefficient (shock impact)
+- β = GARCH coefficient (persistence)
+- ε_{t-1} = previous return shock
+**Constraint:** α + β < 1 for stationarity
+**Edge:** Models volatility clustering
+
+### Formula 676: GARCH Long-Run Variance
+```
+σ²_∞ = ω / (1 - α - β)
+```
+**Edge:** Unconditional variance target
+
+### Formula 677: GARCH(p,q) General Form
+```
+σ²_t = ω + Σ_{i=1}^q α_i × ε²_{t-i} + Σ_{j=1}^p β_j × σ²_{t-j}
+```
+**Edge:** Extended lag structure
+
+### Formula 678: EGARCH (Exponential)
+```
+ln(σ²_t) = ω + α × (|z_{t-1}| - E[|z|]) + γ × z_{t-1} + β × ln(σ²_{t-1})
+```
+**Variables:**
+- z_t = standardized residual
+- γ = leverage parameter
+**Edge:** Captures asymmetric volatility response
+
+---
+
+## SOURCE 9: AMM/DeFi Pricing
+**Citation:** Uniswap V2 Whitepaper (2020)
+**URL:** https://uniswap.org/whitepaper.pdf
+**Status:** EXTRACTED
+
+### Formula 679: Constant Product AMM
+```
+x × y = k
+```
+**Variables:**
+- x = reserve of token X
+- y = reserve of token Y
+- k = invariant constant
+**Edge:** Core DEX pricing mechanism
+
+### Formula 680: AMM Price
+```
+P = y / x
+```
+**Edge:** Spot price from reserves
+
+### Formula 681: AMM Swap Output
+```
+Δy = y × Δx / (x + Δx)
+```
+**Variables:**
+- Δx = input amount
+- Δy = output amount
+**Edge:** Calculates trade execution
+
+### Formula 682: AMM Price Impact
+```
+Impact = 2 × Δx / (x + Δx)
+```
+**Edge:** Slippage from trade size
+
+### Formula 683: AMM Impermanent Loss
+```
+IL = 2 × √(P_ratio) / (1 + P_ratio) - 1
+```
+**Variables:**
+- P_ratio = P_new / P_initial
+**Edge:** LP value loss from price divergence
+
+---
+
+## SOURCE 10: Risk Measures (VaR/CVaR)
+**Citation:** Artzner et al. (1999) "Coherent Measures of Risk" Mathematical Finance
+**Status:** EXTRACTED
+
+### Formula 684: Value at Risk (VaR)
+```
+VaR_α = -inf{x : P(L ≤ x) ≥ α}
+```
+**Variables:**
+- α = confidence level (e.g., 0.95)
+- L = loss distribution
+**Edge:** Maximum loss at confidence level
+
+### Formula 685: Parametric VaR (Normal)
+```
+VaR_α = μ + σ × Φ^{-1}(α)
+```
+**Variables:**
+- Φ^{-1} = inverse normal CDF
+**Edge:** Assumes normal returns
+
+### Formula 686: Conditional VaR (CVaR/ES)
+```
+CVaR_α = E[L | L > VaR_α]
+```
+**Edge:** Expected loss beyond VaR (coherent risk measure)
+
+### Formula 687: CVaR Normal Formula
+```
+CVaR_α = μ + σ × φ(Φ^{-1}(α)) / (1-α)
+```
+**Variables:**
+- φ = normal PDF
+**Edge:** Closed-form for normal distribution
+
+---
+
+## EXTRACTION STATUS (CONTINUED 2)
+
+| ID | Name | Source | Status |
+|----|------|--------|--------|
+| 670 | ReservationPrice | Avellaneda-Stoikov (2008) | ✅ EXTRACTED |
+| 671 | OptimalSpread | Avellaneda-Stoikov (2008) | ✅ EXTRACTED |
+| 672 | IndifferenceBid | Avellaneda-Stoikov (2008) | ✅ EXTRACTED |
+| 673 | IndifferenceAsk | Avellaneda-Stoikov (2008) | ✅ EXTRACTED |
+| 674 | InventoryPenalty | Avellaneda-Stoikov (2008) | ✅ EXTRACTED |
+| 675 | GARCH11Variance | Bollerslev (1986) | ✅ EXTRACTED |
+| 676 | GARCHLongRunVar | Bollerslev (1986) | ✅ EXTRACTED |
+| 677 | GARCHpq | Bollerslev (1986) | ✅ EXTRACTED |
+| 678 | EGARCH | Nelson (1991) | ✅ EXTRACTED |
+| 679 | ConstantProductAMM | Uniswap V2 (2020) | ✅ EXTRACTED |
+| 680 | AMMPrice | Uniswap V2 (2020) | ✅ EXTRACTED |
+| 681 | AMMSwapOutput | Uniswap V2 (2020) | ✅ EXTRACTED |
+| 682 | AMMPriceImpact | Uniswap V2 (2020) | ✅ EXTRACTED |
+| 683 | ImpermanentLoss | Uniswap V2 (2020) | ✅ EXTRACTED |
+| 684 | VaR | Artzner et al. (1999) | ✅ EXTRACTED |
+| 685 | ParametricVaR | Artzner et al. (1999) | ✅ EXTRACTED |
+| 686 | CVaR | Artzner et al. (1999) | ✅ EXTRACTED |
+| 687 | CVaRNormal | Artzner et al. (1999) | ✅ EXTRACTED |
+| 688-719 | - | - | PENDING |
+
+---
+
+## SOURCE 11: Black-Scholes Option Pricing
+**Citation:** Black & Scholes (1973) "The Pricing of Options and Corporate Liabilities" J. Political Economy
+**Citation:** Merton (1973) "Theory of Rational Option Pricing" Bell Journal of Economics
+**URL:** https://www.macroption.com/black-scholes-formula/
+**Status:** EXTRACTED
+
+### Formula 688: d1 Parameter
+```
+d1 = [ln(S/K) + (r + ½σ²)T] / (σ√T)
+```
+**Variables:**
+- S = current stock price
+- K = strike price
+- r = risk-free rate
+- σ = volatility
+- T = time to expiration
+**Edge:** Core input for option price calculation
+
+### Formula 689: d2 Parameter
+```
+d2 = d1 - σ√T = [ln(S/K) + (r - ½σ²)T] / (σ√T)
+```
+**Edge:** Probability that option finishes in-the-money
+
+### Formula 690: Call Option Price
+```
+C = S × N(d1) - K × e^(-rT) × N(d2)
+```
+**Variables:**
+- N(x) = standard normal CDF
+**Edge:** Theoretical fair value of European call
+
+### Formula 691: Put Option Price
+```
+P = K × e^(-rT) × N(-d2) - S × N(-d1)
+```
+**Edge:** Theoretical fair value of European put
+
+### Formula 692: Put-Call Parity
+```
+C - P = S - K × e^(-rT)
+```
+**Edge:** Arbitrage relationship between calls and puts
+
+---
+
+## SOURCE 12: Fama-French Factor Models
+**Citation:** Fama & French (1993) "Common Risk Factors in Returns" J. Financial Economics
+**URL:** https://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html
+**Status:** EXTRACTED
+
+### Formula 693: Three-Factor Model
+```
+R_i - R_f = α_i + β_1 × (R_m - R_f) + β_2 × SMB + β_3 × HML + ε_i
+```
+**Variables:**
+- R_i = portfolio return
+- R_f = risk-free rate
+- R_m = market return
+- SMB = Small Minus Big (size factor)
+- HML = High Minus Low (value factor)
+**Edge:** Explains cross-section of stock returns better than CAPM
+
+### Formula 694: SMB Factor
+```
+SMB = ⅓(Small Value + Small Neutral + Small Growth) - ⅓(Big Value + Big Neutral + Big Growth)
+```
+**Edge:** Size premium capture
+
+### Formula 695: HML Factor
+```
+HML = ½(Small Value + Big Value) - ½(Small Growth + Big Growth)
+```
+**Edge:** Value premium capture
+
+### Formula 696: Five-Factor Model
+```
+R_i - R_f = α + β_MKT(R_m-R_f) + β_SMB×SMB + β_HML×HML + β_RMW×RMW + β_CMA×CMA + ε
+```
+**Variables:**
+- RMW = Robust Minus Weak (profitability)
+- CMA = Conservative Minus Aggressive (investment)
+**Edge:** Extended factor model with profitability and investment factors
+
+---
+
+## SOURCE 13: Merton Jump Diffusion
+**Citation:** Merton (1976) "Option Pricing When Underlying Stock Returns Are Discontinuous" J. Financial Economics
+**URL:** https://quant-next.com/the-merton-jump-diffusion-model/
+**Status:** EXTRACTED
+
+### Formula 697: Jump Diffusion SDE
+```
+dS/S = μ dt + σ dW + dJ
+```
+**Variables:**
+- μ = drift
+- σ = diffusion volatility
+- W = Brownian motion
+- J = compound Poisson process (jump component)
+**Edge:** Models rare large price movements (crashes/rallies)
+
+### Formula 698: Jump Component
+```
+dJ = Σ(Y_i - 1) dN_t, where Y_i ~ LogNormal(μ_J, σ_J²)
+```
+**Variables:**
+- N_t = Poisson process with intensity λ
+- Y_i = i.i.d. jump size multipliers
+**Edge:** Lognormal jump sizes driven by Poisson arrivals
+
+### Formula 699: Merton Option Price (Infinite Series)
+```
+C = Σ_{n=0}^∞ [e^(-λτ)(λτ)^n / n!] × BS(S_n, K, r_n, σ_n, τ)
+```
+**Variables:**
+- S_n = S × exp(n × (μ_J + ½σ_J²))
+- σ_n² = σ² + n × σ_J² / τ
+- r_n = r - λ × k + n × log(1+k) / τ
+**Edge:** Weighted sum of Black-Scholes prices conditioned on jump count
+
+---
+
+## SOURCE 14: Ornstein-Uhlenbeck Process
+**Citation:** Uhlenbeck & Ornstein (1930) Physical Review
+**URL:** https://en.wikipedia.org/wiki/Ornstein–Uhlenbeck_process
+**Status:** EXTRACTED
+
+### Formula 700: OU Process SDE
+```
+dX_t = θ(μ - X_t)dt + σ dW_t
+```
+**Variables:**
+- θ = mean reversion speed
+- μ = long-term mean
+- σ = volatility
+- W_t = Brownian motion
+**Edge:** Models mean-reverting processes (spreads, rates)
+
+### Formula 701: OU Analytical Solution
+```
+X_t = X_0 × e^(-θt) + μ(1 - e^(-θt)) + σ ∫_0^t e^(-θ(t-s)) dW_s
+```
+**Edge:** Explicit solution for simulation
+
+### Formula 702: OU Half-Life
+```
+t_{1/2} = ln(2) / θ
+```
+**Edge:** Time to revert halfway to mean
+
+---
+
+## SOURCE 15: Kelly Criterion
+**Citation:** Kelly (1956) "A New Interpretation of Information Rate" Bell System Technical Journal
+**URL:** https://corporatefinanceinstitute.com/resources/data-science/kelly-criterion/
+**Status:** EXTRACTED
+
+### Formula 703: Kelly Fraction
+```
+f* = (bp - q) / b = (p(b+1) - 1) / b
+```
+**Variables:**
+- f* = optimal fraction to bet
+- b = odds received on bet (decimal - 1)
+- p = probability of winning
+- q = probability of losing (1-p)
+**Edge:** Maximizes long-term geometric growth rate
+
+### Formula 704: Kelly for Continuous Outcomes
+```
+f* = (μ - r) / σ²
+```
+**Variables:**
+- μ = expected return
+- r = risk-free rate
+- σ² = variance of returns
+**Edge:** Optimal leverage for continuous distributions
+
+### Formula 705: Fractional Kelly
+```
+f_fractional = κ × f*,  where κ ∈ (0, 1)
+```
+**Edge:** Reduces volatility at cost of growth rate
+
+---
+
+## SOURCE 16: Performance Ratios
+**Citation:** Sharpe (1966) "Mutual Fund Performance" Journal of Business
+**Citation:** Sortino & Price (1994) "Performance Measurement in a Downside Risk Framework" Journal of Investing
+**URL:** https://www.cmegroup.com/education/files/rr-sortino-a-sharper-ratio.pdf
+**Status:** EXTRACTED
+
+### Formula 706: Sharpe Ratio
+```
+SR = (R_p - R_f) / σ_p
+```
+**Variables:**
+- R_p = portfolio return
+- R_f = risk-free rate
+- σ_p = portfolio standard deviation
+**Edge:** Risk-adjusted performance measure
+
+### Formula 707: Sortino Ratio
+```
+Sortino = (R_p - MAR) / σ_downside
+```
+**Variables:**
+- MAR = minimum acceptable return
+- σ_downside = downside deviation (only negative returns)
+**Edge:** Penalizes only downside volatility
+
+### Formula 708: Information Ratio
+```
+IR = (R_p - R_b) / TE
+```
+**Variables:**
+- R_b = benchmark return
+- TE = tracking error (std dev of excess returns)
+**Edge:** Measures alpha generation consistency
+
+### Formula 709: Treynor Ratio
+```
+TR = (R_p - R_f) / β_p
+```
+**Variables:**
+- β_p = portfolio beta
+**Edge:** Return per unit of systematic risk
+
+### Formula 710: Calmar Ratio
+```
+Calmar = CAGR / Max Drawdown
+```
+**Edge:** Return relative to worst loss
+
+### Formula 711: Maximum Drawdown
+```
+MDD = max_{t∈[0,T]} [(max_{s∈[0,t]} P_s) - P_t] / max_{s∈[0,t]} P_s
+```
+**Edge:** Largest peak-to-trough decline
+
+---
+
+## EXTRACTION STATUS (CONTINUED 3)
+
+| ID | Name | Source | Status |
+|----|------|--------|--------|
+| 688 | BS_d1 | Black-Scholes (1973) | ✅ EXTRACTED |
+| 689 | BS_d2 | Black-Scholes (1973) | ✅ EXTRACTED |
+| 690 | BSCallPrice | Black-Scholes (1973) | ✅ EXTRACTED |
+| 691 | BSPutPrice | Black-Scholes (1973) | ✅ EXTRACTED |
+| 692 | PutCallParity | Black-Scholes (1973) | ✅ EXTRACTED |
+| 693 | FF3Factor | Fama-French (1993) | ✅ EXTRACTED |
+| 694 | SMBFactor | Fama-French (1993) | ✅ EXTRACTED |
+| 695 | HMLFactor | Fama-French (1993) | ✅ EXTRACTED |
+| 696 | FF5Factor | Fama-French (2015) | ✅ EXTRACTED |
+| 697 | JumpDiffusionSDE | Merton (1976) | ✅ EXTRACTED |
+| 698 | JumpComponent | Merton (1976) | ✅ EXTRACTED |
+| 699 | MertonOptionPrice | Merton (1976) | ✅ EXTRACTED |
+| 700 | OUProcessSDE | Uhlenbeck-Ornstein (1930) | ✅ EXTRACTED |
+| 701 | OUSolution | Uhlenbeck-Ornstein (1930) | ✅ EXTRACTED |
+| 702 | OUHalfLife | Uhlenbeck-Ornstein (1930) | ✅ EXTRACTED |
+| 703 | KellyFraction | Kelly (1956) | ✅ EXTRACTED |
+| 704 | KellyContinuous | Kelly (1956) | ✅ EXTRACTED |
+| 705 | FractionalKelly | Kelly (1956) | ✅ EXTRACTED |
+| 706 | SharpeRatio | Sharpe (1966) | ✅ EXTRACTED |
+| 707 | SortinoRatio | Sortino (1994) | ✅ EXTRACTED |
+| 708 | InformationRatio | - | ✅ EXTRACTED |
+| 709 | TreynorRatio | Treynor (1965) | ✅ EXTRACTED |
+| 710 | CalmarRatio | - | ✅ EXTRACTED |
+| 711 | MaxDrawdown | - | ✅ EXTRACTED |
+| 712-719 | - | - | PENDING |
+
+---
+
+## SOURCE 17: Option Greeks
+**Citation:** Black & Scholes (1973), Merton (1973)
+**URL:** https://www.macroption.com/black-scholes-formula/
+**Status:** EXTRACTED
+
+### Formula 712: Delta (Call)
+```
+Δ_call = N(d1)
+```
+**Edge:** Hedge ratio, probability proxy for ITM
+
+### Formula 713: Delta (Put)
+```
+Δ_put = N(d1) - 1 = -N(-d1)
+```
+**Edge:** Negative for puts (inverse relationship)
+
+### Formula 714: Gamma (Both)
+```
+Γ = φ(d1) / (S × σ × √T)
+```
+**Variables:**
+- φ(x) = standard normal PDF
+**Edge:** Convexity of option price, delta sensitivity
+
+### Formula 715: Theta (Call)
+```
+Θ_call = -[S × φ(d1) × σ / (2√T)] - r × K × e^(-rT) × N(d2)
+```
+**Edge:** Time decay (usually negative)
+
+### Formula 716: Vega (Both)
+```
+ν = S × √T × φ(d1)
+```
+**Edge:** Volatility sensitivity (same for calls/puts)
+
+### Formula 717: Rho (Call)
+```
+ρ_call = K × T × e^(-rT) × N(d2)
+```
+**Edge:** Interest rate sensitivity
+
+---
+
+## SOURCE 18: Interest Rate Models
+**Citation:** Vasicek (1977) "An Equilibrium Characterization of the Term Structure"
+**Citation:** Cox, Ingersoll, Ross (1985) "A Theory of the Term Structure of Interest Rates"
+**URL:** https://en.wikipedia.org/wiki/Vasicek_model
+**Status:** EXTRACTED
+
+### Formula 718: Vasicek Model
+```
+dr_t = θ(μ - r_t)dt + σ dW_t
+```
+**Variables:**
+- θ = mean reversion speed
+- μ = long-term mean rate
+- σ = volatility
+**Edge:** Mean-reverting rates (allows negative rates)
+
+### Formula 719: Cox-Ingersoll-Ross (CIR) Model
+```
+dr_t = κ(θ - r_t)dt + σ√r_t dW_t
+```
+**Variables:**
+- Feller condition: 2κθ > σ² (ensures positivity)
+**Edge:** Non-negative rates via square-root diffusion
+
+---
+
+## EXTRACTION STATUS (FINAL)
+
+| ID | Name | Source | Status |
+|----|------|--------|--------|
+| 712 | DeltaCall | Black-Scholes Greeks | ✅ EXTRACTED |
+| 713 | DeltaPut | Black-Scholes Greeks | ✅ EXTRACTED |
+| 714 | Gamma | Black-Scholes Greeks | ✅ EXTRACTED |
+| 715 | ThetaCall | Black-Scholes Greeks | ✅ EXTRACTED |
+| 716 | Vega | Black-Scholes Greeks | ✅ EXTRACTED |
+| 717 | RhoCall | Black-Scholes Greeks | ✅ EXTRACTED |
+| 718 | VasicekModel | Vasicek (1977) | ✅ EXTRACTED |
+| 719 | CIRModel | Cox-Ingersoll-Ross (1985) | ✅ EXTRACTED |
+
+---
+
+## SUMMARY: IDs 641-719 COMPLETE
+
+**Total Extracted in academic_core.md: 79 formulas**
+
+Categories Covered:
+- Hawkes Processes (641-647)
+- Almgren-Chriss Execution (648-659)
+- Kyle Lambda (660)
+- VPIN (661-663)
+- Heston Volatility (664-666)
+- Rough Volatility (667-669)
+- Avellaneda-Stoikov (670-674)
+- GARCH (675-678)
+- AMM/DeFi (679-683)
+- Risk Measures (684-687)
+- Black-Scholes (688-692)
+- Fama-French (693-696)
+- Merton Jump (697-699)
+- Ornstein-Uhlenbeck (700-702)
+- Kelly Criterion (703-705)
+- Performance Ratios (706-711)
+- Option Greeks (712-717)
+- Interest Rate Models (718-719)
