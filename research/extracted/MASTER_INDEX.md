@@ -11,13 +11,13 @@
 |--------|------|-----|--------|----------|
 | USPTO Patents | `patents.md` | 591-640 | ✅ COMPLETE | 50 |
 | arXiv q-fin / Academic | `academic_core.md` | 641-719 | ✅ COMPLETE | 79 |
-| Hedge Fund SEC | `sec_filings.md` | 761-800 | PENDING | 0 |
+| Hedge Fund SEC | `sec_filings.md` | 761-800 | ✅ COMPLETE | 40 |
 | Blockchain MEV | `blockchain_mev.md` | 482-519 | ✅ COMPLETE | 38 |
-| Risk Management | `risk_mgmt.md` | 223-238 | PENDING | 0 |
-| Top Journals | `journals.md` | 741-760 | PENDING | 0 |
+| Risk Management | `risk_mgmt.md` | 223-238 | ✅ COMPLETE | 16 |
+| Top Journals | `journals.md` | 741-760 | ✅ COMPLETE | 20 |
 | QuantLib | `quantlib.md` | 811-900 | PENDING | 0 |
 
-**TOTAL EXTRACTED: 167 formulas**
+**TOTAL EXTRACTED: 259 formulas**
 
 ### Sources Used:
 - [Flashbots REV](https://writings.flashbots.net/quantifying-rev)
@@ -51,13 +51,26 @@
 - US20150066727A1 - Order Execution Delay Patent
 - Perold (1988) "Implementation Shortfall"
 - Amihud (2002) J. Financial Markets - Illiquidity
+- Sharpe (1964) J. Finance - CAPM
+- Lintner (1965) RFS - Security Prices
+- Ross (1976) J. Economic Theory - APT
+- Markowitz (1952) J. Finance - Portfolio Selection
+- Carhart (1997) J. Finance - Four-Factor Model
+- Jegadeesh & Titman (1993) J. Finance - Momentum
+- Fama (1970) J. Finance - Efficient Markets
+- Lo & MacKinlay (1988) RFS - Variance Ratio
+- Pastor & Stambaugh (2003) J. Political Economy - Liquidity Risk
+- Jorion (2006) Value at Risk - VaR Decomposition
+- McNeil & Frey (2000) J. Empirical Finance - EVT
+- Maillard et al. (2010) J. Portfolio Management - Risk Parity
 
 ---
 
 ## NEXT AVAILABLE IDs
 
-- Gap IDs: 223-238, 308-310, 427-430, 436-445, 454-460, 468-475, 482-519, 524-589, 591-719, 761-800
-- New IDs: 811+
+- Filled: 223-238, 482-519, 591-719, 741-800
+- Remaining Gaps: 308-310, 427-430, 436-445, 454-460, 468-475, 524-589, 720-740
+- Next Available: 811+ (QuantLib)
 
 ---
 
