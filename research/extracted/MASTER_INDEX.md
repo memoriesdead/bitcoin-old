@@ -9,7 +9,7 @@
 
 | Source | File | IDs | Status | Formulas |
 |--------|------|-----|--------|----------|
-| USPTO Patents | `patents.md` | 591-640 | IN PROGRESS | 11 |
+| USPTO Patents | `patents.md` | 591-640 | ✅ COMPLETE | 50 |
 | arXiv q-fin / Academic | `academic_core.md` | 641-719 | ✅ COMPLETE | 79 |
 | Hedge Fund SEC | `sec_filings.md` | 761-800 | PENDING | 0 |
 | Blockchain MEV | `blockchain_mev.md` | 482-519 | ✅ COMPLETE | 38 |
@@ -17,7 +17,7 @@
 | Top Journals | `journals.md` | 741-760 | PENDING | 0 |
 | QuantLib | `quantlib.md` | 811-900 | PENDING | 0 |
 
-**TOTAL EXTRACTED: 128 formulas**
+**TOTAL EXTRACTED: 167 formulas**
 
 ### Sources Used:
 - [Flashbots REV](https://writings.flashbots.net/quantifying-rev)
@@ -47,6 +47,10 @@
 - Atis Elsts (2021) "Liquidity Math in Uniswap V3"
 - ETH Zurich (2021) "Analyzing and Preventing Sandwich Attacks"
 - Flashbots Docs - Bundle Pricing
+- US8571967B1 - Algorithmic Trading Strategies Patent
+- US20150066727A1 - Order Execution Delay Patent
+- Perold (1988) "Implementation Shortfall"
+- Amihud (2002) J. Financial Markets - Illiquidity
 
 ---
 
