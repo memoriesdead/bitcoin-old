@@ -19,8 +19,11 @@
 | Gap Fill (Small) | `gaps_small.md` | 308-310, 427-475 | ✅ COMPLETE | 32 |
 | Gap Fill (Extended) | `gaps_524_589.md` | 524-589 | ✅ COMPLETE | 66 |
 | Gap Fill (Factors) | `gaps_720_740.md` | 720-740 | ✅ COMPLETE | 21 |
+| Fixed Income/Derivatives | `gaps_239_307.md` | 239-307 | ✅ COMPLETE | 69 |
+| Comprehensive Quant | `gaps_311_426.md` | 311-426 | ✅ COMPLETE | 116 |
+| Misc (Blockchain/DeFi) | `gaps_misc.md` | 476-481, 520-523, 590 | ✅ COMPLETE | 11 |
 
-**TOTAL EXTRACTED: 468 formulas**
+**TOTAL EXTRACTED: 664 formulas**
 
 ### Sources Used:
 - [Flashbots REV](https://writings.flashbots.net/quantifying-rev)
@@ -82,13 +85,26 @@
 - Asness et al. (2019) J. Portfolio Management - Quality Minus Junk
 - Frazzini & Pedersen (2014) J. Financial Economics - Betting Against Beta
 - Black & Litterman (1992) Financial Analysts Journal - Global Portfolio Optimization
+- Fabozzi (2007) "Fixed Income Mathematics" McGraw-Hill
+- Tuckman & Serrat (2011) "Fixed Income Securities" Wiley
+- Hull (2018) "Options, Futures, and Other Derivatives" Pearson
+- O'Kane (2008) "Modelling Credit Derivatives" Wiley
+- Wystup (2017) "FX Options and Structured Products" Wiley
+- Gatheral (2006) "The Volatility Surface" Wiley
+- Campbell, Lo, MacKinlay (1997) "Econometrics of Financial Markets" Princeton
+- Box, Jenkins, Reinsel (2015) "Time Series Analysis" Wiley
+- Grinold & Kahn (2000) "Active Portfolio Management" McGraw-Hill
+- Hasbrouck (2007) "Empirical Market Microstructure" Oxford
+- Geman (2005) "Commodities and Commodity Derivatives" Wiley
+- López de Prado (2018) "Advances in Financial ML" Wiley
+- Dixon, Halperin, Bilokon (2020) "Machine Learning in Finance" Springer
 
 ---
 
 ## NEXT AVAILABLE IDs
 
-- Filled: 223-238, 308-310, 427-475, 482-589, 591-900
-- Remaining Gaps: 239-307, 311-426, 476-481, 520-523, 590
+- Filled: 223-900 (ALL GAPS COMPLETE)
+- Remaining Gaps: NONE
 - Next Available: 901+
 
 ---
