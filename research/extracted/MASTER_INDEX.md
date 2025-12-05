@@ -12,12 +12,12 @@
 | USPTO Patents | `patents.md` | 591-640 | IN PROGRESS | 11 |
 | arXiv q-fin / Academic | `academic_core.md` | 641-719 | ✅ COMPLETE | 79 |
 | Hedge Fund SEC | `sec_filings.md` | 761-800 | PENDING | 0 |
-| Blockchain MEV | `blockchain_mev.md` | 482-519 | IN PROGRESS | 9 |
+| Blockchain MEV | `blockchain_mev.md` | 482-519 | ✅ COMPLETE | 38 |
 | Risk Management | `risk_mgmt.md` | 223-238 | PENDING | 0 |
 | Top Journals | `journals.md` | 741-760 | PENDING | 0 |
 | QuantLib | `quantlib.md` | 811-900 | PENDING | 0 |
 
-**TOTAL EXTRACTED: 99 formulas**
+**TOTAL EXTRACTED: 128 formulas**
 
 ### Sources Used:
 - [Flashbots REV](https://writings.flashbots.net/quantifying-rev)
@@ -44,6 +44,9 @@
 - Sortino & Price (1994) Journal of Investing - Downside Risk
 - Vasicek (1977) J. Financial & Quantitative Analysis - Interest Rates
 - Cox, Ingersoll, Ross (1985) Econometrica - CIR Model
+- Atis Elsts (2021) "Liquidity Math in Uniswap V3"
+- ETH Zurich (2021) "Analyzing and Preventing Sandwich Attacks"
+- Flashbots Docs - Bundle Pricing
 
 ---
 
