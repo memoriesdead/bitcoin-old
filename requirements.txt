@@ -1,25 +1,42 @@
-# Renaissance Trading System - Requirements
-# ==========================================
+# Renaissance Trading System - INSTITUTIONAL GRADE Requirements
+# =============================================================
+# Verified stack based on what Two Sigma, Citadel, Goldman Sachs use
 
-# Core
+# Core (already installed)
 numpy>=1.24.0
 scipy>=1.10.0
-
-# Data handling
 pandas>=2.0.0
+
+# HIGH-PERFORMANCE DATA (Polars = 10-100x faster than Pandas)
+polars>=0.20.0
+duckdb>=0.10.0
+
+# HIDDEN MARKOV MODELS (industry standard for regime detection)
+hmmlearn>=0.3.0
+
+# GARCH/VOLATILITY (Kevin Sheppard's library - academic + industry standard)
+arch>=6.0.0
+
+# ML - GRADIENT BOOSTING (LightGBM = fastest, XGBoost = best accuracy)
+lightgbm>=4.0.0
+xgboost>=2.0.0
+scikit-learn>=1.3.0
+
+# EXCHANGE CONNECTIVITY (production-tested, 100+ exchanges)
+ccxt>=4.0.0
 
 # Async & WebSocket
 aiohttp>=3.8.0
 websockets>=11.0
 
-# Optional: Performance (uncomment if available)
-# numba>=0.57.0
+# ZeroMQ for Bitcoin Core
+pyzmq>=25.0.0
 
-# Optional: Machine Learning
-# scikit-learn>=1.3.0
-# xgboost>=1.7.0
+# Optional: NautilusTrader (Rust core, nanosecond resolution)
+# nautilus_trader>=1.180.0
+
+# Optional: vectorbt for fast backtesting
+# vectorbt>=0.26.0
 
 # Development
-# pytest>=7.0.0
-# black>=23.0.0
-# mypy>=1.0.0
+pytest>=7.0.0
