@@ -1,0 +1,19 @@
+{
+  "timestamp": 1765955465.7109416,
+  "timestamp_str": "2025-12-16T23:11:05.710942",
+  "total_capital": 100.0,
+  "current_equity": 100.0,
+  "unrealized_pnl": 0,
+  "realized_pnl": 0.0,
+  "current_drawdown": 0.0,
+  "max_drawdown": 0.0,
+  "high_water_mark": 100.0,
+  "num_active_positions": 0,
+  "positions": [],
+  "formula_performance": {},
+  "system_status": "ACTIVE",
+  "last_signal_time": 0.0,
+  "signals_today": 0,
+  "trades_today": 0,
+  "equity_curve_length": 1
+}

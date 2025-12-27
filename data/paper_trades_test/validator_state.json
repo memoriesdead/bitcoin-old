@@ -1,0 +1,20 @@
+{
+  "RENTECH_001": {
+    "status": "CONFIRMING",
+    "baseline_win_rate": 1.0,
+    "baseline_avg_return": 20.0,
+    "baseline_trades": 10,
+    "live_trades": 1,
+    "live_wins": 1,
+    "live_losses": 0,
+    "live_total_return": 3.4482758620689724,
+    "sprt_log_likelihood": 0.6830968447064438,
+    "sprt_decision": "CONTINUE",
+    "ema_win_rate_10": 0.5909090909090908,
+    "ema_win_rate_20": 0.5476190476190477,
+    "cusum_value": 1.6551724137931028,
+    "cusum_peak": 1.6551724137931028,
+    "last_trade_time": 1768621544.5211535,
+    "last_status_change": 0.0
+  }
+}

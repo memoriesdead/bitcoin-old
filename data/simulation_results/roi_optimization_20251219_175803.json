@@ -1,0 +1,204 @@
+{
+  "timestamp": "2025-12-19T17:58:03.420774",
+  "best_config": {
+    "params": {
+      "kelly_fraction": 1.5,
+      "leverage": 25,
+      "tp_pct": 0.02,
+      "sl_pct": 0.003,
+      "signal_threshold": 1.3
+    },
+    "final_equity": 480080.5667697622,
+    "total_return": 479980.5667697622,
+    "daily_roi": 15.174208251792077,
+    "days_to_10x": 16.298527628627905,
+    "total_trades": 52,
+    "win_rate": 61.53846153846154,
+    "max_drawdown": 19.515531382735013,
+    "wins": 32,
+    "losses": 20
+  },
+  "top_10": [
+    {
+      "params": {
+        "kelly_fraction": 1.5,
+        "leverage": 25,
+        "tp_pct": 0.02,
+        "sl_pct": 0.003,
+        "signal_threshold": 1.3
+      },
+      "final_equity": 480080.5667697622,
+      "total_return": 479980.5667697622,
+      "daily_roi": 15.174208251792077,
+      "days_to_10x": 16.298527628627905,
+      "total_trades": 52,
+      "win_rate": 61.53846153846154,
+      "max_drawdown": 19.515531382735013,
+      "wins": 32,
+      "losses": 20
+    },
+    {
+      "params": {
+        "kelly_fraction": 1.5,
+        "leverage": 25,
+        "tp_pct": 0.02,
+        "sl_pct": 0.003,
+        "signal_threshold": 1.5
+      },
+      "final_equity": 337206.8001058616,
+      "total_return": 337106.8001058616,
+      "daily_roi": 14.498097913047525,
+      "days_to_10x": 17.00730250817356,
+      "total_trades": 51,
+      "win_rate": 60.78431372549019,
+      "max_drawdown": 19.51553138273502,
+      "wins": 31,
+      "losses": 20
+    },
+    {
+      "params": {
+        "kelly_fraction": 1.5,
+        "leverage": 25,
+        "tp_pct": 0.015,
+        "sl_pct": 0.003,
+        "signal_threshold": 1.3
+      },
+      "final_equity": 318520.5039083725,
+      "total_return": 318420.5039083725,
+      "daily_roi": 14.389358177513945,
+      "days_to_10x": 17.127504076972777,
+      "total_trades": 52,
+      "win_rate": 75.0,
+      "max_drawdown": 14.252446127250288,
+      "wins": 39,
+      "losses": 13
+    },
+    {
+      "params": {
+        "kelly_fraction": 1.5,
+        "leverage": 25,
+        "tp_pct": 0.02,
+        "sl_pct": 0.004,
+        "signal_threshold": 1.3
+      },
+      "final_equity": 247439.77997351254,
+      "total_return": 247339.77997351254,
+      "daily_roi": 13.908943901117588,
+      "days_to_10x": 17.681019273037247,
+      "total_trades": 52,
+      "win_rate": 61.53846153846154,
+      "max_drawdown": 24.14865367445675,
+      "wins": 32,
+      "losses": 20
+    },
+    {
+      "params": {
+        "kelly_fraction": 1.5,
+        "leverage": 25,
+        "tp_pct": 0.015,
+        "sl_pct": 0.003,
+        "signal_threshold": 1.5
+      },
+      "final_equity": 233057.58037891885,
+      "total_return": 232957.58037891882,
+      "daily_roi": 13.795316277808922,
+      "days_to_10x": 17.817566471793626,
+      "total_trades": 51,
+      "win_rate": 74.50980392156863,
+      "max_drawdown": 14.252446127250293,
+      "wins": 38,
+      "losses": 13
+    },
+    {
+      "params": {
+        "kelly_fraction": 1.5,
+        "leverage": 25,
+        "tp_pct": 0.015,
+        "sl_pct": 0.003,
+        "signal_threshold": 1.2
+      },
+      "final_equity": 200448.43919074407,
+      "total_return": 200348.43919074407,
+      "daily_roi": 13.509805101182204,
+      "days_to_10x": 18.170790830333896,
+      "total_trades": 53,
+      "win_rate": 69.81132075471697,
+      "max_drawdown": 14.450395967608578,
+      "wins": 37,
+      "losses": 16
+    },
+    {
+      "params": {
+        "kelly_fraction": 1.5,
+        "leverage": 25,
+        "tp_pct": 0.02,
+        "sl_pct": 0.004,
+        "signal_threshold": 1.5
+      },
+      "final_equity": 166030.97707685016,
+      "total_return": 165930.97707685016,
+      "daily_roi": 13.15397598613346,
+      "days_to_10x": 18.632446013351778,
+      "total_trades": 51,
+      "win_rate": 60.78431372549019,
+      "max_drawdown": 24.148653674456753,
+      "wins": 31,
+      "losses": 20
+    },
+    {
+      "params": {
+        "kelly_fraction": 1.5,
+        "leverage": 25,
+        "tp_pct": 0.015,
+        "sl_pct": 0.004,
+        "signal_threshold": 1.3
+      },
+      "final_equity": 161665.2917963104,
+      "total_return": 161565.2917963104,
+      "daily_roi": 13.10373493061341,
+      "days_to_10x": 18.69964658233522,
+      "total_trades": 52,
+      "win_rate": 75.0,
+      "max_drawdown": 17.408429589859857,
+      "wins": 39,
+      "losses": 13
+    },
+    {
+      "params": {
+        "kelly_fraction": 1.5,
+        "leverage": 25,
+        "tp_pct": 0.015,
+        "sl_pct": 0.003,
+        "signal_threshold": 1.1
+      },
+      "final_equity": 147119.88823763232,
+      "total_return": 147019.88823763232,
+      "daily_roi": 12.92615029842954,
+      "days_to_10x": 18.94135870889344,
+      "total_trades": 55,
+      "win_rate": 65.45454545454545,
+      "max_drawdown": 14.942622234450722,
+      "wins": 36,
+      "losses": 19
+    },
+    {
+      "params": {
+        "kelly_fraction": 1.5,
+        "leverage": 25,
+        "tp_pct": 0.02,
+        "sl_pct": 0.005,
+        "signal_threshold": 1.3
+      },
+      "final_equity": 126314.46518680367,
+      "total_return": 126214.46518680369,
+      "daily_roi": 12.639544298666316,
+      "days_to_10x": 19.34577061298403,
+      "total_trades": 52,
+      "win_rate": 61.53846153846154,
+      "max_drawdown": 28.03546073226141,
+      "wins": 32,
+      "losses": 20
+    }
+  ],
+  "total_tested": 1600
+}

@@ -1,0 +1,58 @@
+{
+  "timestamp": "2025-12-19T00:06:28.681592",
+  "results": {
+    "total_trades": 0,
+    "wins": 0,
+    "losses": 0,
+    "win_rate": 0,
+    "profit_factor": Infinity,
+    "total_pnl": 0,
+    "final_equity": 100.0,
+    "return_pct": 0.0,
+    "max_drawdown": 0,
+    "sharpe": 0,
+    "daily_roi": 0,
+    "avg_leverage": 0,
+    "avg_confidence": 0,
+    "avg_consensus": 0,
+    "timeframe_consistency": 0,
+    "kelly_optimal": false,
+    "kelly_reason": "Negative edge (Kelly=-0.500)",
+    "filter_stats": {
+      "total_signals": 2559,
+      "passed_signals": 0,
+      "pass_rate": 0.0,
+      "rejection_reasons": {
+        "low_confidence": 2250,
+        "low_consensus": 0,
+        "weak_edge": 0,
+        "unstable_regime": 0,
+        "no_direction": 309
+      }
+    },
+    "daily_stats": [],
+    "quiet_whale": {
+      "trades": 0,
+      "wins": 0,
+      "losses": 0,
+      "win_rate": 0,
+      "pnl": 0
+    }
+  },
+  "validation": {
+    "passed": false,
+    "reason": "Insufficient trades: 0 < 50",
+    "total_trades": 0,
+    "win_rate": 0,
+    "profit_factor": Infinity,
+    "max_drawdown": 0,
+    "daily_roi": 0,
+    "sharpe": 0,
+    "edge_consistency": 0,
+    "kelly_optimal": false,
+    "recommendations": [
+      "Need more data for statistical significance"
+    ]
+  },
+  "trades": []
+}

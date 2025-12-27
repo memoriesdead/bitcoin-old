@@ -1,0 +1,93 @@
+{
+  "timestamp": "2025-12-19T00:08:04.459135",
+  "results": {
+    "total_trades": 1,
+    "wins": 1,
+    "losses": 0,
+    "win_rate": 1.0,
+    "profit_factor": Infinity,
+    "total_pnl": 0.04299999999999841,
+    "final_equity": 100.04299999999999,
+    "return_pct": 0.00042999999999992155,
+    "max_drawdown": 0,
+    "sharpe": 0.0,
+    "daily_roi": 0.0,
+    "avg_leverage": 5.0,
+    "avg_confidence": 0.95,
+    "avg_consensus": 0.82,
+    "timeframe_consistency": 1.0,
+    "kelly_optimal": false,
+    "kelly_reason": "Need 70% WR, have 100.0%. Max safe: 4.0x",
+    "filter_stats": {
+      "total_signals": 2559,
+      "passed_signals": 1,
+      "pass_rate": 0.00039077764751856197,
+      "rejection_reasons": {
+        "low_confidence": 2249,
+        "low_consensus": 0,
+        "weak_edge": 0,
+        "unstable_regime": 0,
+        "no_direction": 309
+      }
+    },
+    "daily_stats": [
+      {
+        "date": "2014-05-24",
+        "trades": 1,
+        "wins": 0,
+        "losses": 0,
+        "pnl": 0.0,
+        "max_drawdown": 0.0,
+        "leverage_used": 5.0
+      }
+    ],
+    "quiet_whale": {
+      "trades": 1,
+      "wins": 1,
+      "losses": 0,
+      "win_rate": 1.0,
+      "pnl": 0.04299999999999841
+    }
+  },
+  "validation": {
+    "passed": false,
+    "reason": "Insufficient trades: 1 < 50",
+    "total_trades": 1,
+    "win_rate": 1.0,
+    "profit_factor": Infinity,
+    "max_drawdown": 0,
+    "daily_roi": 0.0,
+    "sharpe": 0.0,
+    "edge_consistency": 1.0,
+    "kelly_optimal": false,
+    "recommendations": [
+      "Need more data for statistical significance"
+    ]
+  },
+  "trades": [
+    {
+      "id": "20X_1400976000",
+      "timestamp": 1400976000,
+      "entry_price": 520.72023,
+      "direction": 1,
+      "leverage": 5,
+      "size_usd": 10.0,
+      "stop_loss": 519.67878954,
+      "take_profit": 523.3238311499999,
+      "confidence": 0.95,
+      "consensus": 0.82,
+      "edge_strength": 0.7,
+      "regime": "consolidation",
+      "timeframe": 10,
+      "entry_fee": 0.0035,
+      "signal_type": "QUIET_WHALE",
+      "exit_timestamp": 1400976000,
+      "exit_price": 523.3238311499999,
+      "exit_reason": "TAKE_PROFIT",
+      "exit_fee": 0.0035,
+      "pnl_gross": 0.049999999999998414,
+      "pnl_net": 0.04299999999999841,
+      "leveraged_return": 0.024999999999999207
+    }
+  ]
+}

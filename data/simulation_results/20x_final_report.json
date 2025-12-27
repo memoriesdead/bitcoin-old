@@ -1,0 +1,52 @@
+{
+  "timestamp": "2025-12-18T23:41:22.772264",
+  "goal": "Explosive long/short with 20x+ leverage, highest win rate, maximum edge",
+  "baseline_metrics": {
+    "total_trades": 45,
+    "wins": 30,
+    "losses": 15,
+    "win_rate": 0.6666666666666666,
+    "avg_win_usd": 794.6094963703201,
+    "avg_loss_usd": 143.4151629845857,
+    "win_loss_ratio": 5.540624016553431,
+    "profit_factor": 11.081248033106862
+  },
+  "kelly_analysis": {
+    "full_kelly": 0.606504971460955,
+    "quarter_kelly": 0.15162624286523874,
+    "max_safe_leverage": 6.595164406261604
+  },
+  "leverage_scenarios": {
+    "5x": {
+      "kelly_fraction": 0.2,
+      "expected_daily_pct": 100.0
+    },
+    "7x": {
+      "kelly_fraction": 0.15,
+      "expected_daily_pct": 105.0
+    },
+    "10x": {
+      "kelly_fraction": 0.1,
+      "expected_daily_pct": 100.0
+    },
+    "15x": {
+      "kelly_fraction": 0.07,
+      "expected_daily_pct": 105.0
+    },
+    "20x": {
+      "kelly_fraction": 0.05,
+      "expected_daily_pct": 100.0
+    }
+  },
+  "verdict": {
+    "is_20x_safe": false,
+    "recommended_leverage": 6,
+    "reason": "High win/loss ratio (5.54:1) provides strong edge, but Kelly suggests 7x max for quarter-Kelly safety"
+  },
+  "path_to_20x": [
+    "Increase win rate to 75%+ by filtering for QUIET_WHALE signals only",
+    "Reduce stop loss to 0.2% (tighter) to improve win/loss ratio further",
+    "Add regime stability filter (only trade when regime stable >60s)",
+    "Use Timeframe-Adaptive Engine with confidence >0.70 filter"
+  ]
+}
