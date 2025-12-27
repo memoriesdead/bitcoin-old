@@ -1,0 +1,62 @@
+{
+  "created": "2025-12-13",
+  "description": "RenTech-style Bitcoin blockchain analysis dataset",
+  "sources": {
+    "orbitaal": {
+      "url": "https://zenodo.org/records/12581515",
+      "coverage": "2009-01-03 to 2021-12-31",
+      "size_gb": 97.4,
+      "directories": {
+        "NODE_TABLE": {
+          "path": "orbitaal/NODE_TABLE",
+          "size_gb": 33.29,
+          "format": "parquet",
+          "description": "Entity-to-address clustering and mappings"
+        },
+        "SNAPSHOT": {
+          "path": "orbitaal/SNAPSHOT",
+          "size_gb": 37.70,
+          "format": "parquet",
+          "description": "Daily balance snapshots for all addresses"
+        },
+        "STREAM_GRAPH": {
+          "path": "orbitaal/STREAM_GRAPH",
+          "size_gb": 26.36,
+          "format": "parquet",
+          "description": "Transaction flow graphs between entities"
+        }
+      }
+    },
+    "exchanges": {
+      "url": "https://drive.switch.ch/index.php/s/ag4OnNgwf7LhWFu",
+      "address_count": 7663654,
+      "exchange_count": 86,
+      "files": {
+        "raw": "entity_addresses/",
+        "processed": "exchanges.json"
+      }
+    },
+    "prices": {
+      "source": "CryptoCompare",
+      "coverage": "2014-09-17 to 2025-12-13",
+      "candle_count": 4364,
+      "interval": "daily",
+      "file": "historical_flows.db",
+      "format": "sqlite"
+    }
+  },
+  "gaps": {
+    "blockchain": {
+      "missing": "2022-01-01 to 2025-12-13",
+      "solution": "Bitcoin Core node or mempool.space API"
+    }
+  },
+  "signals": [
+    "exchange_inflow",
+    "exchange_outflow",
+    "whale_movement",
+    "miner_flows",
+    "dormant_coins",
+    "entity_clustering"
+  ]
+}

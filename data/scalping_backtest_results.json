@@ -1,0 +1,962 @@
+[
+  {
+    "params": {
+      "tp": 1.0,
+      "sl": 0.3,
+      "hold": 5
+    },
+    "total_trades": 414,
+    "wins": 271,
+    "losses": 143,
+    "win_rate": 0.6545893719806763,
+    "total_pnl_pct": 219.82000000000093,
+    "total_pnl_usd": 1099.1000000000047,
+    "avg_trade_pnl": 2.6548309178744076,
+    "max_drawdown": 0.05365526492286981,
+    "sharpe_ratio": 13.635512236506823,
+    "exits_by_tp": 271,
+    "exits_by_sl": 143,
+    "exits_by_time": 0,
+    "daily_trades_avg": 0.09488883795553518
+  },
+  {
+    "params": {
+      "tp": 1.0,
+      "sl": 0.5,
+      "hold": 5
+    },
+    "total_trades": 391,
+    "wins": 275,
+    "losses": 116,
+    "win_rate": 0.7033248081841432,
+    "total_pnl_pct": 209.18000000000066,
+    "total_pnl_usd": 1045.9000000000033,
+    "avg_trade_pnl": 2.6749360613810826,
+    "max_drawdown": 0.036136205698401105,
+    "sharpe_ratio": 12.39463746518706,
+    "exits_by_tp": 275,
+    "exits_by_sl": 116,
+    "exits_by_time": 0,
+    "daily_trades_avg": 0.08961723584689434
+  },
+  {
+    "params": {
+      "tp": 1.0,
+      "sl": 0.2,
+      "hold": 5
+    },
+    "total_trades": 347,
+    "wins": 224,
+    "losses": 123,
+    "win_rate": 0.6455331412103746,
+    "total_pnl_pct": 192.46000000000026,
+    "total_pnl_usd": 962.3000000000013,
+    "avg_trade_pnl": 2.7731988472622517,
+    "max_drawdown": 0.02900461437046863,
+    "sharpe_ratio": 15.33850177452126,
+    "exits_by_tp": 224,
+    "exits_by_sl": 123,
+    "exits_by_time": 0,
+    "daily_trades_avg": 0.07953243181297273
+  },
+  {
+    "params": {
+      "tp": 1.0,
+      "sl": 0.2,
+      "hold": 10
+    },
+    "total_trades": 315,
+    "wins": 215,
+    "losses": 100,
+    "win_rate": 0.6825396825396826,
+    "total_pnl_pct": 188.7000000000001,
+    "total_pnl_usd": 943.5000000000005,
+    "avg_trade_pnl": 2.9952380952380966,
+    "max_drawdown": 0.021789369428854292,
+    "sharpe_ratio": 17.02439528687351,
+    "exits_by_tp": 215,
+    "exits_by_sl": 100,
+    "exits_by_time": 0,
+    "daily_trades_avg": 0.07219802887921155
+  },
+  {
+    "params": {
+      "tp": 0.7000000000000001,
+      "sl": 0.3,
+      "hold": 5
+    },
+    "total_trades": 419,
+    "wins": 312,
+    "losses": 107,
+    "win_rate": 0.7446300715990454,
+    "total_pnl_pct": 177.919999999999,
+    "total_pnl_usd": 889.5999999999949,
+    "avg_trade_pnl": 2.1231503579952147,
+    "max_drawdown": 0.02687569988801725,
+    "sharpe_ratio": 15.458090815979052,
+    "exits_by_tp": 312,
+    "exits_by_sl": 107,
+    "exits_by_time": 0,
+    "daily_trades_avg": 0.09603483841393537
+  },
+  {
+    "params": {
+      "tp": 0.7000000000000001,
+      "sl": 0.2,
+      "hold": 5
+    },
+    "total_trades": 395,
+    "wins": 287,
+    "losses": 108,
+    "win_rate": 0.7265822784810126,
+    "total_pnl_pct": 171.39999999999853,
+    "total_pnl_usd": 856.9999999999926,
+    "avg_trade_pnl": 2.1696202531645383,
+    "max_drawdown": 0.014138817480719743,
+    "sharpe_ratio": 17.171797264666388,
+    "exits_by_tp": 287,
+    "exits_by_sl": 108,
+    "exits_by_time": 0,
+    "daily_trades_avg": 0.09053403621361449
+  },
+  {
+    "params": {
+      "tp": 1.0,
+      "sl": 0.3,
+      "hold": 10
+    },
+    "total_trades": 299,
+    "wins": 201,
+    "losses": 98,
+    "win_rate": 0.6722408026755853,
+    "total_pnl_pct": 165.62000000000054,
+    "total_pnl_usd": 828.1000000000028,
+    "avg_trade_pnl": 2.7695652173913134,
+    "max_drawdown": 0.0542556798914881,
+    "sharpe_ratio": 14.409822520580505,
+    "exits_by_tp": 201,
+    "exits_by_sl": 98,
+    "exits_by_time": 0,
+    "daily_trades_avg": 0.06853082741233096
+  },
+  {
+    "params": {
+      "tp": 0.7000000000000001,
+      "sl": 0.5,
+      "hold": 5
+    },
+    "total_trades": 403,
+    "wins": 298,
+    "losses": 105,
+    "win_rate": 0.739454094292804,
+    "total_pnl_pct": 148.03999999999888,
+    "total_pnl_usd": 740.1999999999945,
+    "avg_trade_pnl": 1.83672456575681,
+    "max_drawdown": 0.03051643192488264,
+    "sharpe_ratio": 11.071215878533074,
+    "exits_by_tp": 298,
+    "exits_by_sl": 105,
+    "exits_by_time": 0,
+    "daily_trades_avg": 0.09236763694705478
+  },
+  {
+    "params": {
+      "tp": 0.5,
+      "sl": 0.3,
+      "hold": 5
+    },
+    "total_trades": 407,
+    "wins": 333,
+    "losses": 74,
+    "win_rate": 0.8181818181818182,
+    "total_pnl_pct": 136.15999999999858,
+    "total_pnl_usd": 680.7999999999929,
+    "avg_trade_pnl": 1.6727272727272553,
+    "max_drawdown": 0.03137254901960764,
+    "sharpe_ratio": 17.211623979160155,
+    "exits_by_tp": 333,
+    "exits_by_sl": 74,
+    "exits_by_time": 0,
+    "daily_trades_avg": 0.09328443731377492
+  },
+  {
+    "params": {
+      "tp": 0.7000000000000001,
+      "sl": 0.2,
+      "hold": 10
+    },
+    "total_trades": 292,
+    "wins": 219,
+    "losses": 73,
+    "win_rate": 0.75,
+    "total_pnl_pct": 132.85999999999896,
+    "total_pnl_usd": 664.2999999999948,
+    "avg_trade_pnl": 2.274999999999982,
+    "max_drawdown": 0.02214765100671115,
+    "sharpe_ratio": 18.533972810710257,
+    "exits_by_tp": 219,
+    "exits_by_sl": 73,
+    "exits_by_time": 0,
+    "daily_trades_avg": 0.0669264267705707
+  },
+  {
+    "params": {
+      "tp": 0.5,
+      "sl": 0.2,
+      "hold": 5
+    },
+    "total_trades": 362,
+    "wins": 300,
+    "losses": 62,
+    "win_rate": 0.8287292817679558,
+    "total_pnl_pct": 130.3599999999981,
+    "total_pnl_usd": 651.7999999999905,
+    "avg_trade_pnl": 1.800552486187819,
+    "max_drawdown": 0.026790063321967896,
+    "sharpe_ratio": 21.676547414985055,
+    "exits_by_tp": 300,
+    "exits_by_sl": 62,
+    "exits_by_time": 0,
+    "daily_trades_avg": 0.08297043318817328
+  },
+  {
+    "params": {
+      "tp": 0.7000000000000001,
+      "sl": 0.3,
+      "hold": 10
+    },
+    "total_trades": 303,
+    "wins": 221,
+    "losses": 82,
+    "win_rate": 0.7293729372937293,
+    "total_pnl_pct": 124.03999999999931,
+    "total_pnl_usd": 620.1999999999965,
+    "avg_trade_pnl": 2.0468646864686355,
+    "max_drawdown": 0.02384500745156433,
+    "sharpe_ratio": 14.627124735082896,
+    "exits_by_tp": 221,
+    "exits_by_sl": 82,
+    "exits_by_time": 0,
+    "daily_trades_avg": 0.06944762777905111
+  },
+  {
+    "params": {
+      "tp": 0.5,
+      "sl": 0.5,
+      "hold": 5
+    },
+    "total_trades": 361,
+    "wins": 305,
+    "losses": 56,
+    "win_rate": 0.8448753462603878,
+    "total_pnl_pct": 117.2799999999984,
+    "total_pnl_usd": 586.399999999992,
+    "avg_trade_pnl": 1.6243767313019168,
+    "max_drawdown": 0.07938931297709957,
+    "sharpe_ratio": 14.245585200507444,
+    "exits_by_tp": 305,
+    "exits_by_sl": 56,
+    "exits_by_time": 0,
+    "daily_trades_avg": 0.08274123309649324
+  },
+  {
+    "params": {
+      "tp": 1.0,
+      "sl": 0.5,
+      "hold": 10
+    },
+    "total_trades": 294,
+    "wins": 180,
+    "losses": 114,
+    "win_rate": 0.6122448979591837,
+    "total_pnl_pct": 117.12000000000059,
+    "total_pnl_usd": 585.6000000000029,
+    "avg_trade_pnl": 1.9918367346938872,
+    "max_drawdown": 0.06532416502946824,
+    "sharpe_ratio": 8.65269502687292,
+    "exits_by_tp": 180,
+    "exits_by_sl": 114,
+    "exits_by_time": 0,
+    "daily_trades_avg": 0.06738482695393078
+  },
+  {
+    "params": {
+      "tp": 0.7000000000000001,
+      "sl": 0.5,
+      "hold": 10
+    },
+    "total_trades": 307,
+    "wins": 225,
+    "losses": 82,
+    "win_rate": 0.7328990228013029,
+    "total_pnl_pct": 110.35999999999885,
+    "total_pnl_usd": 551.7999999999943,
+    "avg_trade_pnl": 1.797394136807799,
+    "max_drawdown": 0.0972886762360444,
+    "sharpe_ratio": 10.748120602085022,
+    "exits_by_tp": 225,
+    "exits_by_sl": 82,
+    "exits_by_time": 0,
+    "daily_trades_avg": 0.07036442814577126
+  },
+  {
+    "params": {
+      "tp": 0.5,
+      "sl": 0.2,
+      "hold": 10
+    },
+    "total_trades": 298,
+    "wins": 240,
+    "losses": 58,
+    "win_rate": 0.8053691275167785,
+    "total_pnl_pct": 102.43999999999846,
+    "total_pnl_usd": 512.1999999999923,
+    "avg_trade_pnl": 1.7187919463086991,
+    "max_drawdown": 0.01790073230268519,
+    "sharpe_ratio": 19.69029317506959,
+    "exits_by_tp": 240,
+    "exits_by_sl": 58,
+    "exits_by_time": 0,
+    "daily_trades_avg": 0.06830162732065093
+  },
+  {
+    "params": {
+      "tp": 0.5,
+      "sl": 0.3,
+      "hold": 10
+    },
+    "total_trades": 287,
+    "wins": 234,
+    "losses": 53,
+    "win_rate": 0.8153310104529616,
+    "total_pnl_pct": 95.35999999999895,
+    "total_pnl_usd": 476.7999999999947,
+    "avg_trade_pnl": 1.6613240418118282,
+    "max_drawdown": 0.02766798418972298,
+    "sharpe_ratio": 16.99145862434635,
+    "exits_by_tp": 234,
+    "exits_by_sl": 53,
+    "exits_by_time": 0,
+    "daily_trades_avg": 0.06578042631217053
+  },
+  {
+    "params": {
+      "tp": 0.5,
+      "sl": 0.5,
+      "hold": 10
+    },
+    "total_trades": 312,
+    "wins": 254,
+    "losses": 58,
+    "win_rate": 0.8141025641025641,
+    "total_pnl_pct": 91.75999999999868,
+    "total_pnl_usd": 458.7999999999934,
+    "avg_trade_pnl": 1.4705128205127995,
+    "max_drawdown": 0.040372670807453256,
+    "sharpe_ratio": 12.001148791060995,
+    "exits_by_tp": 254,
+    "exits_by_sl": 58,
+    "exits_by_time": 0,
+    "daily_trades_avg": 0.07151042860417144
+  },
+  {
+    "params": {
+      "tp": 1.0,
+      "sl": 0.3,
+      "hold": 30
+    },
+    "total_trades": 166,
+    "wins": 111,
+    "losses": 55,
+    "win_rate": 0.6686746987951807,
+    "total_pnl_pct": 91.18000000000032,
+    "total_pnl_usd": 455.90000000000157,
+    "avg_trade_pnl": 2.7463855421686842,
+    "max_drawdown": 0.03755868544600856,
+    "sharpe_ratio": 14.249960870785793,
+    "exits_by_tp": 111,
+    "exits_by_sl": 55,
+    "exits_by_time": 0,
+    "daily_trades_avg": 0.038047215218886085
+  },
+  {
+    "params": {
+      "tp": 0.3,
+      "sl": 0.2,
+      "hold": 5
+    },
+    "total_trades": 393,
+    "wins": 355,
+    "losses": 38,
+    "win_rate": 0.9033078880407125,
+    "total_pnl_pct": 91.03999999999789,
+    "total_pnl_usd": 455.1999999999895,
+    "avg_trade_pnl": 1.1582697201017544,
+    "max_drawdown": 0.022494887525562793,
+    "sharpe_ratio": 24.886082714714323,
+    "exits_by_tp": 355,
+    "exits_by_sl": 38,
+    "exits_by_time": 0,
+    "daily_trades_avg": 0.09007563603025441
+  },
+  {
+    "params": {
+      "tp": 1.0,
+      "sl": 0.2,
+      "hold": 30
+    },
+    "total_trades": 181,
+    "wins": 105,
+    "losses": 76,
+    "win_rate": 0.580110497237569,
+    "total_pnl_pct": 86.18000000000006,
+    "total_pnl_usd": 430.9000000000003,
+    "avg_trade_pnl": 2.3806629834254163,
+    "max_drawdown": 0.02661826981246185,
+    "sharpe_ratio": 12.76215657131964,
+    "exits_by_tp": 105,
+    "exits_by_sl": 76,
+    "exits_by_time": 0,
+    "daily_trades_avg": 0.04148521659408664
+  },
+  {
+    "params": {
+      "tp": 0.3,
+      "sl": 0.3,
+      "hold": 5
+    },
+    "total_trades": 403,
+    "wins": 352,
+    "losses": 51,
+    "win_rate": 0.8734491315136477,
+    "total_pnl_pct": 82.23999999999833,
+    "total_pnl_usd": 411.1999999999917,
+    "avg_trade_pnl": 1.0203473945409223,
+    "max_drawdown": 0.028099173553719534,
+    "sharpe_ratio": 16.23961398520881,
+    "exits_by_tp": 352,
+    "exits_by_sl": 51,
+    "exits_by_time": 0,
+    "daily_trades_avg": 0.09236763694705478
+  },
+  {
+    "params": {
+      "tp": 0.7000000000000001,
+      "sl": 0.2,
+      "hold": 30
+    },
+    "total_trades": 178,
+    "wins": 132,
+    "losses": 46,
+    "win_rate": 0.7415730337078652,
+    "total_pnl_pct": 79.63999999999923,
+    "total_pnl_usd": 398.1999999999962,
+    "avg_trade_pnl": 2.237078651685372,
+    "max_drawdown": 0.01718749999999981,
+    "sharpe_ratio": 18.026986390555685,
+    "exits_by_tp": 132,
+    "exits_by_sl": 46,
+    "exits_by_time": 0,
+    "daily_trades_avg": 0.04079761631904653
+  },
+  {
+    "params": {
+      "tp": 0.7000000000000001,
+      "sl": 0.3,
+      "hold": 30
+    },
+    "total_trades": 183,
+    "wins": 138,
+    "losses": 45,
+    "win_rate": 0.7540983606557377,
+    "total_pnl_pct": 79.43999999999956,
+    "total_pnl_usd": 397.1999999999978,
+    "avg_trade_pnl": 2.170491803278676,
+    "max_drawdown": 0.02693602693602722,
+    "sharpe_ratio": 16.00271629116929,
+    "exits_by_tp": 138,
+    "exits_by_sl": 45,
+    "exits_by_time": 0,
+    "daily_trades_avg": 0.041943616777446714
+  },
+  {
+    "params": {
+      "tp": 1.0,
+      "sl": 0.5,
+      "hold": 30
+    },
+    "total_trades": 176,
+    "wins": 113,
+    "losses": 63,
+    "win_rate": 0.6420454545454546,
+    "total_pnl_pct": 77.98000000000029,
+    "total_pnl_usd": 389.9000000000014,
+    "avg_trade_pnl": 2.215340909090917,
+    "max_drawdown": 0.045893719806762635,
+    "sharpe_ratio": 9.780988442207118,
+    "exits_by_tp": 113,
+    "exits_by_sl": 63,
+    "exits_by_time": 0,
+    "daily_trades_avg": 0.04033921613568645
+  },
+  {
+    "params": {
+      "tp": 0.3,
+      "sl": 0.5,
+      "hold": 5
+    },
+    "total_trades": 390,
+    "wins": 349,
+    "losses": 41,
+    "win_rate": 0.8948717948717949,
+    "total_pnl_pct": 76.39999999999812,
+    "total_pnl_usd": 381.9999999999906,
+    "avg_trade_pnl": 0.9794871794871555,
+    "max_drawdown": 0.02253855278766332,
+    "sharpe_ratio": 12.673570940243346,
+    "exits_by_tp": 349,
+    "exits_by_sl": 41,
+    "exits_by_time": 0,
+    "daily_trades_avg": 0.0893880357552143
+  },
+  {
+    "params": {
+      "tp": 0.3,
+      "sl": 0.2,
+      "hold": 10
+    },
+    "total_trades": 315,
+    "wins": 276,
+    "losses": 39,
+    "win_rate": 0.8761904761904762,
+    "total_pnl_pct": 68.69999999999854,
+    "total_pnl_usd": 343.49999999999267,
+    "avg_trade_pnl": 1.0904761904761673,
+    "max_drawdown": 0.019298245614035273,
+    "sharpe_ratio": 21.02326470515148,
+    "exits_by_tp": 276,
+    "exits_by_sl": 39,
+    "exits_by_time": 0,
+    "daily_trades_avg": 0.07219802887921155
+  },
+  {
+    "params": {
+      "tp": 0.7000000000000001,
+      "sl": 0.5,
+      "hold": 30
+    },
+    "total_trades": 179,
+    "wins": 134,
+    "losses": 45,
+    "win_rate": 0.7486033519553073,
+    "total_pnl_pct": 67.71999999999957,
+    "total_pnl_usd": 338.59999999999786,
+    "avg_trade_pnl": 1.8916201117318316,
+    "max_drawdown": 0.07011866235167137,
+    "sharpe_ratio": 11.53658626084411,
+    "exits_by_tp": 134,
+    "exits_by_sl": 45,
+    "exits_by_time": 0,
+    "daily_trades_avg": 0.041026816410726565
+  },
+  {
+    "params": {
+      "tp": 0.3,
+      "sl": 0.5,
+      "hold": 10
+    },
+    "total_trades": 301,
+    "wins": 272,
+    "losses": 29,
+    "win_rate": 0.9036544850498339,
+    "total_pnl_pct": 61.07999999999861,
+    "total_pnl_usd": 305.3999999999931,
+    "avg_trade_pnl": 1.0146179401993127,
+    "max_drawdown": 0.0590238365493755,
+    "sharpe_ratio": 13.646643954730273,
+    "exits_by_tp": 272,
+    "exits_by_sl": 29,
+    "exits_by_time": 0,
+    "daily_trades_avg": 0.06898922759569104
+  },
+  {
+    "params": {
+      "tp": 0.5,
+      "sl": 0.2,
+      "hold": 30
+    },
+    "total_trades": 171,
+    "wins": 139,
+    "losses": 32,
+    "win_rate": 0.8128654970760234,
+    "total_pnl_pct": 59.67999999999928,
+    "total_pnl_usd": 298.3999999999964,
+    "avg_trade_pnl": 1.7450292397660607,
+    "max_drawdown": 0.01085347804637381,
+    "sharpe_ratio": 20.293112152210508,
+    "exits_by_tp": 139,
+    "exits_by_sl": 32,
+    "exits_by_time": 0,
+    "daily_trades_avg": 0.03919321567728627
+  },
+  {
+    "params": {
+      "tp": 0.3,
+      "sl": 0.3,
+      "hold": 10
+    },
+    "total_trades": 292,
+    "wins": 254,
+    "losses": 38,
+    "win_rate": 0.8698630136986302,
+    "total_pnl_pct": 58.95999999999873,
+    "total_pnl_usd": 294.79999999999364,
+    "avg_trade_pnl": 1.0095890410958686,
+    "max_drawdown": 0.021872265966754487,
+    "sharpe_ratio": 15.878074606568864,
+    "exits_by_tp": 254,
+    "exits_by_sl": 38,
+    "exits_by_time": 0,
+    "daily_trades_avg": 0.0669264267705707
+  },
+  {
+    "params": {
+      "tp": 0.5,
+      "sl": 0.3,
+      "hold": 30
+    },
+    "total_trades": 177,
+    "wins": 144,
+    "losses": 33,
+    "win_rate": 0.8135593220338984,
+    "total_pnl_pct": 58.55999999999925,
+    "total_pnl_usd": 292.79999999999626,
+    "avg_trade_pnl": 1.654237288135572,
+    "max_drawdown": 0.02298850574712596,
+    "sharpe_ratio": 16.85672242486929,
+    "exits_by_tp": 144,
+    "exits_by_sl": 33,
+    "exits_by_time": 0,
+    "daily_trades_avg": 0.04056841622736649
+  },
+  {
+    "params": {
+      "tp": 0.5,
+      "sl": 0.5,
+      "hold": 30
+    },
+    "total_trades": 180,
+    "wins": 149,
+    "losses": 31,
+    "win_rate": 0.8277777777777777,
+    "total_pnl_pct": 55.39999999999953,
+    "total_pnl_usd": 276.99999999999767,
+    "avg_trade_pnl": 1.5388888888888759,
+    "max_drawdown": 0.04626334519572909,
+    "sharpe_ratio": 12.940052966386775,
+    "exits_by_tp": 149,
+    "exits_by_sl": 31,
+    "exits_by_time": 0,
+    "daily_trades_avg": 0.0412560165024066
+  },
+  {
+    "params": {
+      "tp": 1.0,
+      "sl": 0.2,
+      "hold": 60
+    },
+    "total_trades": 108,
+    "wins": 60,
+    "losses": 48,
+    "win_rate": 0.5555555555555556,
+    "total_pnl_pct": 48.239999999999995,
+    "total_pnl_usd": 241.2,
+    "avg_trade_pnl": 2.2333333333333334,
+    "max_drawdown": 0.03200000000000044,
+    "sharpe_ratio": 11.891320364030205,
+    "exits_by_tp": 60,
+    "exits_by_sl": 48,
+    "exits_by_time": 0,
+    "daily_trades_avg": 0.02475360990144396
+  },
+  {
+    "params": {
+      "tp": 0.7000000000000001,
+      "sl": 0.3,
+      "hold": 60
+    },
+    "total_trades": 112,
+    "wins": 80,
+    "losses": 32,
+    "win_rate": 0.7142857142857143,
+    "total_pnl_pct": 44.15999999999958,
+    "total_pnl_usd": 220.79999999999788,
+    "avg_trade_pnl": 1.9714285714285524,
+    "max_drawdown": 0.04359673024523093,
+    "sharpe_ratio": 13.855090039404349,
+    "exits_by_tp": 80,
+    "exits_by_sl": 32,
+    "exits_by_time": 0,
+    "daily_trades_avg": 0.025670410268164107
+  },
+  {
+    "params": {
+      "tp": 1.0,
+      "sl": 0.3,
+      "hold": 60
+    },
+    "total_trades": 110,
+    "wins": 60,
+    "losses": 50,
+    "win_rate": 0.5454545454545454,
+    "total_pnl_pct": 42.80000000000033,
+    "total_pnl_usd": 214.00000000000165,
+    "avg_trade_pnl": 1.9454545454545604,
+    "max_drawdown": 0.04830917874396105,
+    "sharpe_ratio": 9.542014226721776,
+    "exits_by_tp": 60,
+    "exits_by_sl": 50,
+    "exits_by_time": 0,
+    "daily_trades_avg": 0.025212010084804035
+  },
+  {
+    "params": {
+      "tp": 1.0,
+      "sl": 0.5,
+      "hold": 60
+    },
+    "total_trades": 111,
+    "wins": 67,
+    "losses": 44,
+    "win_rate": 0.6036036036036037,
+    "total_pnl_pct": 42.78000000000038,
+    "total_pnl_usd": 213.90000000000188,
+    "avg_trade_pnl": 1.927027027027044,
+    "max_drawdown": 0.16742770167427315,
+    "sharpe_ratio": 8.338463882430059,
+    "exits_by_tp": 67,
+    "exits_by_sl": 44,
+    "exits_by_time": 0,
+    "daily_trades_avg": 0.02544121017648407
+  },
+  {
+    "params": {
+      "tp": 0.3,
+      "sl": 0.2,
+      "hold": 30
+    },
+    "total_trades": 173,
+    "wins": 154,
+    "losses": 19,
+    "win_rate": 0.8901734104046243,
+    "total_pnl_pct": 38.9399999999992,
+    "total_pnl_usd": 194.699999999996,
+    "avg_trade_pnl": 1.1254335260115376,
+    "max_drawdown": 0.014435695538057895,
+    "sharpe_ratio": 22.85541188934398,
+    "exits_by_tp": 154,
+    "exits_by_sl": 19,
+    "exits_by_time": 0,
+    "daily_trades_avg": 0.03965161586064635
+  },
+  {
+    "params": {
+      "tp": 0.7000000000000001,
+      "sl": 0.5,
+      "hold": 60
+    },
+    "total_trades": 113,
+    "wins": 81,
+    "losses": 32,
+    "win_rate": 0.7168141592920354,
+    "total_pnl_pct": 38.43999999999985,
+    "total_pnl_usd": 192.19999999999922,
+    "avg_trade_pnl": 1.7008849557522054,
+    "max_drawdown": 0.06491885143570485,
+    "sharpe_ratio": 9.988146524138257,
+    "exits_by_tp": 81,
+    "exits_by_sl": 32,
+    "exits_by_time": 0,
+    "daily_trades_avg": 0.025899610359844144
+  },
+  {
+    "params": {
+      "tp": 0.3,
+      "sl": 0.3,
+      "hold": 30
+    },
+    "total_trades": 182,
+    "wins": 161,
+    "losses": 21,
+    "win_rate": 0.8846153846153846,
+    "total_pnl_pct": 38.35999999999916,
+    "total_pnl_usd": 191.7999999999958,
+    "avg_trade_pnl": 1.0538461538461308,
+    "max_drawdown": 0.022955523672884327,
+    "sharpe_ratio": 17.454404369214465,
+    "exits_by_tp": 161,
+    "exits_by_sl": 21,
+    "exits_by_time": 0,
+    "daily_trades_avg": 0.04171441668576668
+  },
+  {
+    "params": {
+      "tp": 0.7000000000000001,
+      "sl": 0.2,
+      "hold": 60
+    },
+    "total_trades": 110,
+    "wins": 69,
+    "losses": 41,
+    "win_rate": 0.6272727272727273,
+    "total_pnl_pct": 37.89999999999966,
+    "total_pnl_usd": 189.4999999999983,
+    "avg_trade_pnl": 1.7227272727272571,
+    "max_drawdown": 0.024471635150166638,
+    "sharpe_ratio": 12.568414561032776,
+    "exits_by_tp": 69,
+    "exits_by_sl": 41,
+    "exits_by_time": 0,
+    "daily_trades_avg": 0.025212010084804035
+  },
+  {
+    "params": {
+      "tp": 0.5,
+      "sl": 0.3,
+      "hold": 60
+    },
+    "total_trades": 114,
+    "wins": 89,
+    "losses": 25,
+    "win_rate": 0.7807017543859649,
+    "total_pnl_pct": 34.719999999999544,
+    "total_pnl_usd": 173.59999999999772,
+    "avg_trade_pnl": 1.5228070175438397,
+    "max_drawdown": 0.040540540540539446,
+    "sharpe_ratio": 14.605787986159132,
+    "exits_by_tp": 89,
+    "exits_by_sl": 25,
+    "exits_by_time": 0,
+    "daily_trades_avg": 0.02612881045152418
+  },
+  {
+    "params": {
+      "tp": 0.5,
+      "sl": 0.2,
+      "hold": 60
+    },
+    "total_trades": 111,
+    "wins": 82,
+    "losses": 29,
+    "win_rate": 0.7387387387387387,
+    "total_pnl_pct": 32.97999999999951,
+    "total_pnl_usd": 164.89999999999753,
+    "avg_trade_pnl": 1.4855855855855633,
+    "max_drawdown": 0.01960784313725508,
+    "sharpe_ratio": 15.337230923767937,
+    "exits_by_tp": 82,
+    "exits_by_sl": 29,
+    "exits_by_time": 0,
+    "daily_trades_avg": 0.02544121017648407
+  },
+  {
+    "params": {
+      "tp": 0.3,
+      "sl": 0.5,
+      "hold": 30
+    },
+    "total_trades": 174,
+    "wins": 154,
+    "losses": 20,
+    "win_rate": 0.8850574712643678,
+    "total_pnl_pct": 32.71999999999938,
+    "total_pnl_usd": 163.5999999999969,
+    "avg_trade_pnl": 0.9402298850574534,
+    "max_drawdown": 0.03149606299212557,
+    "sharpe_ratio": 11.698985970043356,
+    "exits_by_tp": 154,
+    "exits_by_sl": 20,
+    "exits_by_time": 0,
+    "daily_trades_avg": 0.03988081595232638
+  },
+  {
+    "params": {
+      "tp": 0.5,
+      "sl": 0.5,
+      "hold": 60
+    },
+    "total_trades": 106,
+    "wins": 81,
+    "losses": 25,
+    "win_rate": 0.7641509433962265,
+    "total_pnl_pct": 25.87999999999969,
+    "total_pnl_usd": 129.39999999999844,
+    "avg_trade_pnl": 1.2207547169811175,
+    "max_drawdown": 0.08099688473520159,
+    "sharpe_ratio": 9.129605857380197,
+    "exits_by_tp": 81,
+    "exits_by_sl": 25,
+    "exits_by_time": 0,
+    "daily_trades_avg": 0.024295209718083886
+  },
+  {
+    "params": {
+      "tp": 0.3,
+      "sl": 0.3,
+      "hold": 60
+    },
+    "total_trades": 114,
+    "wins": 101,
+    "losses": 13,
+    "win_rate": 0.8859649122807017,
+    "total_pnl_pct": 24.11999999999946,
+    "total_pnl_usd": 120.59999999999731,
+    "avg_trade_pnl": 1.0578947368420817,
+    "max_drawdown": 0.02527646129541797,
+    "sharpe_ratio": 17.611403215793075,
+    "exits_by_tp": 101,
+    "exits_by_sl": 13,
+    "exits_by_time": 0,
+    "daily_trades_avg": 0.02612881045152418
+  },
+  {
+    "params": {
+      "tp": 0.3,
+      "sl": 0.2,
+      "hold": 60
+    },
+    "total_trades": 111,
+    "wins": 97,
+    "losses": 14,
+    "win_rate": 0.8738738738738738,
+    "total_pnl_pct": 24.079999999999455,
+    "total_pnl_usd": 120.39999999999726,
+    "avg_trade_pnl": 1.08468468468466,
+    "max_drawdown": 0.014426229508196784,
+    "sharpe_ratio": 20.746118951417937,
+    "exits_by_tp": 97,
+    "exits_by_sl": 14,
+    "exits_by_time": 0,
+    "daily_trades_avg": 0.02544121017648407
+  },
+  {
+    "params": {
+      "tp": 0.3,
+      "sl": 0.5,
+      "hold": 60
+    },
+    "total_trades": 111,
+    "wins": 99,
+    "losses": 12,
+    "win_rate": 0.8918918918918919,
+    "total_pnl_pct": 21.479999999999553,
+    "total_pnl_usd": 107.39999999999776,
+    "avg_trade_pnl": 0.9675675675675474,
+    "max_drawdown": 0.041935483870968016,
+    "sharpe_ratio": 12.36620210676875,
+    "exits_by_tp": 99,
+    "exits_by_sl": 12,
+    "exits_by_time": 0,
+    "daily_trades_avg": 0.02544121017648407
+  }
+]

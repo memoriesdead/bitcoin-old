@@ -1,0 +1,119 @@
+{
+  "timestamp": "2025-12-18T21:52:01.258079",
+  "data_points": 2043,
+  "features": [
+    "tx_zscore",
+    "tx_momentum",
+    "log_tx_count",
+    "value_zscore",
+    "value_momentum",
+    "log_value_btc",
+    "whale_zscore",
+    "whale_ratio",
+    "log_whale_count",
+    "sender_receiver_ratio",
+    "net_flow",
+    "price_zscore",
+    "price_range",
+    "log_value_per_tx",
+    "whale_value_ratio",
+    "activity_intensity",
+    "tx_trend",
+    "value_trend",
+    "whale_trend",
+    "is_tx_spike",
+    "is_value_spike",
+    "is_whale_spike"
+  ],
+  "models": [
+    {
+      "name": "SVM (RBF Kernel)",
+      "accuracy": 0.533442088091354,
+      "precision": 0.548936170212766,
+      "recall": 0.7771084337349398,
+      "f1": 0.6433915211970075,
+      "win_rate": 0.5961783439490446,
+      "backtest_pnl": 3729.0,
+      "feature_importance": {}
+    },
+    {
+      "name": "SVM (Polynomial)",
+      "accuracy": 0.5187601957585645,
+      "precision": 0.5344506517690876,
+      "recall": 0.8644578313253012,
+      "f1": 0.6605293440736478,
+      "win_rate": 0.5780806360022714,
+      "backtest_pnl": 3975.5,
+      "feature_importance": {}
+    },
+    {
+      "name": "Random Forest",
+      "accuracy": 0.5089722675367048,
+      "precision": 0.5359628770301624,
+      "recall": 0.6957831325301205,
+      "f1": 0.6055045871559633,
+      "win_rate": 0.814935064935065,
+      "backtest_pnl": 4678.0,
+      "feature_importance": {
+        "whale_zscore": 0.005962349247075189,
+        "value_trend": 0.005314956318757644,
+        "value_zscore": 0.004797830850781584,
+        "log_value_btc": 0.004522699287042534,
+        "sender_receiver_ratio": 0.004307607963704594
+      }
+    },
+    {
+      "name": "Gradient Boosting",
+      "accuracy": 0.5138662316476346,
+      "precision": 0.5445026178010471,
+      "recall": 0.6265060240963856,
+      "f1": 0.5826330532212886,
+      "win_rate": 0.8486159169550173,
+      "backtest_pnl": 4642.5,
+      "feature_importance": {
+        "value_trend": 0.005183633847746456,
+        "value_zscore": 0.004814354194057819,
+        "activity_intensity": 0.004168120618582966,
+        "is_tx_spike": 0.003684634734160086,
+        "price_range": 0.003037480909140292
+      }
+    }
+  ],
+  "patterns": [
+    {
+      "name": "TX_WHALE_MOMENTUM",
+      "condition": "tx_momentum > 0.1 AND whale_zscore > 0.5",
+      "occurrences": 171,
+      "win_rate": 0.6374269005847953,
+      "edge": 0.09655563284128088
+    },
+    {
+      "name": "WHALE_QUIET_ACCUMULATION",
+      "condition": "whale_zscore > 1 AND low volatility",
+      "occurrences": 159,
+      "win_rate": 0.6226415094339622,
+      "edge": 0.08177024169044778
+    },
+    {
+      "name": "PRICE_OVERSOLD_REVERSAL",
+      "condition": "price_zscore < -1.5",
+      "occurrences": 296,
+      "win_rate": 0.5675675675675675,
+      "edge": 0.026696299824053082
+    },
+    {
+      "name": "VALUE_DISTRIBUTION_BULLISH",
+      "condition": "value_spike AND receivers > senders",
+      "occurrences": 47,
+      "win_rate": 0.48936170212765956,
+      "edge": -0.0515095656158549
+    }
+  ],
+  "anomaly_analysis": {
+    "anomaly_count": 205,
+    "anomaly_pct": 0.10034263338228096,
+    "anomaly_win_rate": 0.48292682926829267,
+    "normal_win_rate": 0.5473340587595212,
+    "edge": -0.06440722949122857
+  }
+}
