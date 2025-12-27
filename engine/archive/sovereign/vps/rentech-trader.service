@@ -1,0 +1,19 @@
+[Unit]
+Description=Sovereign RenTech Mathematical Trader
+After=network.target rentech-collector.service
+Wants=rentech-collector.service
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/root/validation
+ExecStart=/usr/bin/python3 /root/validation/rentech_trader.py
+Restart=always
+RestartSec=10
+
+# Logging
+StandardOutput=append:/root/validation/data/rentech_trader.log
+StandardError=append:/root/validation/data/rentech_trader.log
+
+[Install]
+WantedBy=multi-user.target

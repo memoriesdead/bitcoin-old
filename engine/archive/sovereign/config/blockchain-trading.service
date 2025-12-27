@@ -1,0 +1,32 @@
+[Unit]
+Description=Blockchain Live Trading - Real Edge
+Documentation=INFLOW=SHORT, OUTFLOW=LONG. 10-60s edge.
+After=network.target bitcoind.service
+Requires=bitcoind.service
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/root/livetrading
+Environment=PYTHONPATH=/root/livetrading
+Environment=PYTHONUNBUFFERED=1
+
+# Blockchain runner with fee accounting
+ExecStart=/usr/bin/python3 -m engine.sovereign.simulation.blockchain_runner \
+    --capital 100 \
+    --kelly 0.25 \
+    --exchange binance_us \
+    --zmq tcp://127.0.0.1:28332 \
+    --db-path /root/livetrading/data/blockchain_trades.db
+
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+
+# Resource limits
+LimitNOFILE=65536
+LimitNPROC=65536
+
+[Install]
+WantedBy=multi-user.target

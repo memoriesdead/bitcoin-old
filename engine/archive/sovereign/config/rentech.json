@@ -1,0 +1,126 @@
+{
+  "_comment": "RenTech Live Trading Configuration",
+  "_doc": "Configure RenTech patterns (72001-72099) for live trading",
+
+  "mode": "paper",
+
+  "rentech": {
+    "enabled": true,
+    "engine_mode": "full",
+
+    "formula_groups": {
+      "hmm": {
+        "enabled": true,
+        "formulas": [72001, 72002, 72003, 72004, 72005, 72006, 72007, 72008, 72009, 72010],
+        "weight": 1.0
+      },
+      "signal": {
+        "enabled": true,
+        "formulas": [72011, 72020, 72021, 72022, 72023, 72024, 72025, 72026, 72027, 72028, 72029, 72030],
+        "weight": 1.0
+      },
+      "nonlinear": {
+        "enabled": true,
+        "formulas": [72031, 72040, 72041, 72042, 72043, 72044, 72045, 72046, 72047, 72048, 72049, 72050],
+        "weight": 1.0
+      },
+      "micro": {
+        "enabled": true,
+        "formulas": [72051, 72060, 72061, 72070, 72071, 72072, 72073, 72074, 72075, 72076, 72077, 72078, 72079, 72080],
+        "weight": 1.0
+      },
+      "ensemble": {
+        "enabled": true,
+        "formulas": [72081, 72090, 72091, 72092, 72093, 72094, 72095, 72096, 72097, 72098, 72099],
+        "weight": 1.5
+      }
+    },
+
+    "best_formulas": {
+      "_comment": "Top performing formulas from backtesting",
+      "hmm_best": 72010,
+      "signal_best": 72030,
+      "nonlinear_best": 72050,
+      "micro_best": 72080,
+      "ensemble_best": 72099,
+      "master": 72099
+    },
+
+    "confidence_thresholds": {
+      "min_signal": 0.55,
+      "min_trade": 0.65,
+      "high_confidence": 0.80
+    },
+
+    "position_sizing": {
+      "use_kelly": true,
+      "kelly_fraction_cap": 0.15,
+      "min_position_btc": 0.0001,
+      "max_position_btc": 0.1
+    }
+  },
+
+  "blockchain": {
+    "zmq_endpoint": "tcp://127.0.0.1:28332",
+    "exchanges_json": "data/exchanges.json",
+    "enable_adaptive": true,
+    "enable_pattern": true
+  },
+
+  "ml_enhancement": {
+    "enabled": true,
+    "use_qlib": true,
+    "use_finrl": true,
+    "online_learning": true
+  },
+
+  "safety": {
+    "max_position_usd": 1000.0,
+    "max_total_exposure_usd": 5000.0,
+    "max_daily_trades": 50,
+    "max_daily_loss_usd": 200.0,
+    "max_daily_loss_pct": 0.10,
+    "consecutive_loss_limit": 5,
+    "max_drawdown_pct": 0.10
+  },
+
+  "telegram": {
+    "enabled": false,
+    "token": "",
+    "chat_id": "",
+    "notify_trades": true,
+    "notify_errors": true,
+    "notify_daily_summary": true,
+    "allow_stop": true,
+    "allow_trade": false
+  },
+
+  "exchange": {
+    "exchange_id": "binance",
+    "sandbox": true
+  },
+
+  "symbols": ["BTC/USDT"],
+  "base_position_size": 0.01,
+
+  "logging": {
+    "level": "INFO",
+    "file": "logs/rentech.log",
+    "console": true
+  },
+
+  "paper_trading": {
+    "initial_capital": 10000.0,
+    "slippage_bps": 5,
+    "latency_ms": 50
+  },
+
+  "live_trading": {
+    "_comment": "Settings for LIVE trading - be careful!",
+    "require_confirmation": true,
+    "min_capital_usd": 1000.0,
+    "max_capital_usd": 100000.0,
+    "enable_stop_loss": true,
+    "enable_take_profit": true
+  }
+}

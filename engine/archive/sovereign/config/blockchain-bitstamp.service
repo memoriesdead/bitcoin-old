@@ -1,0 +1,22 @@
+[Unit]
+Description=Blockchain Trading - Bitstamp (0.30% fee)
+After=network.target bitcoind.service
+Requires=bitcoind.service
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/root/livetrading
+Environment=PYTHONPATH=/root/livetrading
+Environment=PYTHONUNBUFFERED=1
+ExecStart=/usr/bin/python3 -m engine.sovereign.simulation.blockchain_runner \
+    --capital 100 --kelly 0.25 --exchange bitstamp \
+    --zmq tcp://127.0.0.1:28332 \
+    --db-path /root/livetrading/data/blockchain_bitstamp.db
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,18 @@
+[Unit]
+Description=Sovereign Historical Analysis
+After=network.target rentech-collector.service
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/root/validation
+ExecStart=/usr/bin/python3 /root/validation/historical_analysis.py
+Restart=always
+RestartSec=60
+
+# Logging
+StandardOutput=append:/root/validation/data/historical_analysis.log
+StandardError=append:/root/validation/data/historical_analysis.log
+
+[Install]
+WantedBy=multi-user.target

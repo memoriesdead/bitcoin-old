@@ -1,0 +1,39 @@
+[package]
+name = "blockchain_runner"
+version = "0.1.0"
+edition = "2021"
+description = "Nanosecond-latency Bitcoin blockchain flow detector"
+
+[dependencies]
+# Bitcoin Core ZMQ - Direct connection, no third-party APIs
+zmq = "0.10"
+bitcoin = "0.32"
+hex = "0.4"
+
+# Async runtime for concurrent processing
+tokio = { version = "1.0", features = ["full"] }
+
+# Fast hash lookups for 8.6M addresses
+hashbrown = "0.14"
+fxhash = "0.2"
+
+# SQLite for address database
+rusqlite = "0.31"  # Uses system libsqlite3
+
+# Serialization
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+# Time handling
+chrono = "0.4"
+
+# Logging
+tracing = "0.1"
+tracing-subscriber = "0.3"
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+panic = "abort"
+strip = true
