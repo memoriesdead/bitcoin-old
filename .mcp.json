@@ -1,0 +1,48 @@
+{
+  "mcpServers": {
+    "memory": {
+      "type": "stdio",
+      "command": "cmd",
+      "args": ["/c", "npx", "-y", "@modelcontextprotocol/server-memory"],
+      "env": {}
+    },
+    "memory-db": {
+      "type": "stdio",
+      "command": "cmd",
+      "args": ["/c", "npx", "-y", "mcp-server-sqlite", "--db", "C:/Users/kevin/livetrading/data/memory.db"],
+      "env": {}
+    },
+    "sqlite-trades": {
+      "type": "stdio",
+      "command": "cmd",
+      "args": ["/c", "npx", "-y", "mcp-server-sqlite", "--db", "C:/Users/kevin/livetrading/data/simulation_trades.db"],
+      "env": {}
+    },
+    "sqlite-correlation": {
+      "type": "stdio",
+      "command": "cmd",
+      "args": ["/c", "npx", "-y", "mcp-server-sqlite", "--db", "C:/Users/kevin/livetrading/data/correlation_results.db"],
+      "env": {}
+    },
+    "sqlite-flows": {
+      "type": "stdio",
+      "command": "cmd",
+      "args": ["/c", "npx", "-y", "mcp-server-sqlite", "--db", "C:/Users/kevin/livetrading/data/exchange_flows_2022_2025.db"],
+      "env": {}
+    },
+    "ccxt": {
+      "type": "stdio",
+      "command": "cmd",
+      "args": ["/c", "npx", "-y", "@lazydino/ccxt-mcp"],
+      "env": {}
+    },
+    "hostinger": {
+      "type": "stdio",
+      "command": "cmd",
+      "args": ["/c", "npx", "-y", "hostinger-api-mcp@latest"],
+      "env": {
+        "API_TOKEN": "jpMy8ELzuKvUOll0f55vcUfNo0GctdAdJU2GUKGt690b70e0"
+      }
+    }
+  }
+}
